@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MotorBalear S.L. · Plan de Sostenibilidad</title>
+<meta name="description" content="Proyecto transversal del módulo Sostenibilidad Aplicada al Sistema Productivo. CFGM Electromecánica y Carrocería.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌱%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --azul:#0b3d66;--azul-2:#145a96;--azul-claro:#e6f0f8;
+  --verde:#1f8a5b;--verde-2:#17714a;--verde-claro:#e4f4ec;--verde-prof:#0c4a38;--menta:#7fe0b4;
+  --tinta:#17252f;--gris:#5a6872;--gris-claro:#f2f5f7;--linea:#d9e1e7;--blanco:#fff;
+  --fuente:"Segoe UI","Helvetica Neue",Arial,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fuente);color:var(--tinta);background:var(--gris-claro);line-height:1.6;font-size:1rem}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--verde);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,92%);margin-inline:auto}
+
+.hero{background:radial-gradient(circle at 85% 20%,rgba(127,224,180,.28),transparent 45%),linear-gradient(125deg,#0a3358 0%,#0d4f7c 45%,#12795c 100%);color:var(--blanco);padding:clamp(36px,6vw,72px) 0 clamp(52px,7vw,88px);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.35fr .65fr;gap:40px;align-items:center}
+.badge{display:inline-block;background:rgba(127,224,180,.16);border:1px solid rgba(127,224,180,.55);padding:6px 16px;border-radius:999px;font-size:.9rem;font-weight:600;margin-bottom:22px}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem);line-height:1.05;letter-spacing:-.02em;font-weight:800}
+.hero h2{font-size:clamp(1.3rem,2.6vw,1.8rem);font-weight:400;color:var(--menta);margin:8px 0 22px}
+.hero p{max-width:60ch;color:#e3edf5;font-size:1.05rem}
+.ring{width:100%;max-width:330px;justify-self:center}
+.ring .giro{transform-origin:150px 150px;animation:giro 60s linear infinite}
+@keyframes giro{to{transform:rotate(360deg)}}
+
+.mision{margin-top:-48px;position:relative;z-index:2}
+.mision .caja{background:var(--blanco);border-radius:16px;border-left:8px solid var(--verde);box-shadow:0 10px 30px rgba(11,61,102,.14);padding:clamp(22px,4vw,38px);display:grid;grid-template-columns:auto 1fr;gap:12px 24px;align-items:start}
+.mision .icono{font-size:2.4rem;line-height:1}
+.mision h3{color:var(--azul);font-size:1.5rem;margin-bottom:6px}
+.mision p{color:#33444f;max-width:70ch}
+
+section.bloque{padding:clamp(28px,4.5vw,48px) 0 0}
+.titulo{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;margin-bottom:18px}
+.titulo h2{font-size:clamp(1.6rem,3vw,2.1rem);color:var(--azul);letter-spacing:-.01em}
+.titulo p{color:var(--gris);max-width:46ch}
+
+.progreso{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:14px 22px;margin-bottom:20px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.progreso strong{color:var(--azul)}
+.barra{height:12px;background:var(--gris-claro);border-radius:999px;overflow:hidden;border:1px solid var(--linea)}
+.barra span{display:block;height:100%;width:33.33%;background:linear-gradient(90deg,var(--verde-prof),var(--verde),var(--menta));border-radius:999px}
+.progreso small{color:var(--gris)}
+
+.rejilla{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.tarjeta{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;position:relative;transition:transform .2s,box-shadow .2s,border-color .2s}
+.tarjeta .cab{display:flex;justify-content:space-between;align-items:center}
+.tarjeta .emoji{width:54px;height:54px;border-radius:14px;background:var(--azul-claro);display:grid;place-items:center;font-size:1.7rem}
+.tarjeta .ud{font-weight:700;color:var(--azul-2);font-size:.95rem}
+.tarjeta h3{font-size:1.2rem;line-height:1.3;color:var(--tinta)}
+.resultado{background:var(--gris-claro);border-radius:10px;padding:10px 12px;font-size:.92rem;color:#33444f}
+.resultado b{display:block;color:var(--verde-2);font-size:.85rem;margin-bottom:2px}
+.pie-tarjeta{margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:6px}
+.estado{font-size:.85rem;font-weight:700;padding:5px 12px;border-radius:999px}
+.disponible .estado{background:var(--verde-claro);color:var(--verde-2)}
+.proximamente .estado{background:#eceff2;color:var(--gris)}
+.accion{font-weight:700;color:var(--azul-2)}
+.disponible{border-top:4px solid var(--verde)}
+.disponible:hover{transform:translateY(-4px);border-color:var(--verde);box-shadow:0 14px 28px rgba(11,61,102,.14)}
+.disponible .emoji{background:var(--verde-claro)}
+.proximamente{background:#fafbfc;pointer-events:none}
+.proximamente .emoji{filter:grayscale(1);opacity:.65;background:#eceff2}
+.proximamente h3,.proximamente .resultado{color:#6c7a84}
+
+.ruta{background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:clamp(22px,3.5vw,34px)}
+.pasos{list-style:none;max-width:640px;margin:0 auto;position:relative}
+.paso{display:grid;grid-template-columns:76px 1fr;gap:20px;align-items:center;position:relative;padding-bottom:22px}
+.paso:last-child{padding-bottom:0}
+.paso::before{content:"";position:absolute;left:37px;top:64px;bottom:-2px;width:3px;background:repeating-linear-gradient(var(--linea) 0 6px,transparent 6px 12px)}
+.paso:last-child::before{display:none}
+.paso::after{content:"▼";position:absolute;left:28px;bottom:6px;font-size:.8rem;color:var(--verde)}
+.paso:last-child::after{display:none}
+.nodo{width:76px;height:64px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:1.15rem;background:var(--gris-claro);color:var(--gris);border:2px solid var(--linea)}
+.paso.hecho .nodo{background:linear-gradient(135deg,var(--verde-prof),var(--verde));border-color:var(--verde);color:#fff}
+.paso h3{font-size:1.1rem;color:var(--tinta)}
+.paso p{font-size:.92rem;color:var(--gris)}
+.nota{text-align:center;max-width:56ch;margin:24px auto 0;font-size:1.1rem;color:var(--verde-prof);font-weight:600;border-top:1px solid var(--linea);padding-top:18px}
+
+footer{background:linear-gradient(120deg,#0a3358,var(--verde-prof));color:#d6e6f2;margin-top:clamp(32px,5vw,56px);padding:28px 0;text-align:center}
+footer strong{display:block;color:#fff;font-size:1.1rem;margin-bottom:4px}
+footer p{font-size:.95rem}
+
+.empresa{display:grid;grid-template-columns:1fr 1.1fr;gap:18px}
+.ficha{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:8px 22px;display:grid;align-content:center}
+.ficha div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--linea)}
+.ficha div:last-child{border-bottom:0}
+.ficha dt{color:var(--gris);font-size:.92rem}
+.ficha dd{font-weight:700;color:var(--azul)}
+.cita{background:linear-gradient(135deg,var(--verde-prof),#146b52 70%,#1f8a5b);color:#fff;border-radius:16px;padding:24px 28px 22px;position:relative;overflow:hidden}
+.cita::before{content:"\201C";position:absolute;top:-18px;right:18px;font-size:8rem;line-height:1;color:rgba(127,224,180,.25);font-family:Georgia,serif}
+.cita blockquote{font-size:1.12rem;line-height:1.5;font-weight:600;position:relative}
+.cita figcaption{margin-top:12px;color:var(--menta);font-weight:600;font-size:.95rem}
+@media (max-width:900px){.empresa{grid-template-columns:1fr}}
+@media (max-width:600px){.ficha div{grid-template-columns:90px 1fr}}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .ring{max-width:200px;order:-1;justify-self:start}
+  .rejilla{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .rejilla{grid-template-columns:1fr}
+  .mision .caja{grid-template-columns:1fr}
+  .progreso{grid-template-columns:1fr}
+  .paso{grid-template-columns:60px 1fr}
+  .nodo{width:60px}
+  .paso::before{left:29px}
+  .paso::after{left:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ring .giro{animation:none}
+  .tarjeta{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge">CFGM Electromecánica y Carrocería</span>
+      <h1>🌱 MotorBalear S.L.</h1>
+      <h2>Plan de Sostenibilidad</h2>
+      <p>Bienvenido al proyecto transversal del módulo de Sostenibilidad Aplicada al Sistema Productivo. A lo largo de las diferentes unidades actuarás como consultor de sostenibilidad para MotorBalear S.L., identificando problemas, analizando retos y diseñando un Plan de Sostenibilidad profesional para una empresa del sector de la automoción.</p>
+    </div>
+    <svg class="ring" viewBox="0 0 300 300" role="img" aria-label="Economía circular aplicada a un vehículo, con indicadores de coste, emisiones y residuos">
+      <circle class="giro" cx="150" cy="150" r="144" fill="none" stroke="rgba(127,224,180,.45)" stroke-width="1.5" stroke-dasharray="3 9"/>
+      <circle cx="150" cy="150" r="128" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+      <g fill="none" stroke-linecap="round" stroke-width="12">
+        <path d="M172.2 23.9 A128 128 0 0 1 276.1 172.2" stroke="#7fe0b4"/>
+        <path d="M248.1 232.3 A128 128 0 0 1 67.7 248.1" stroke="#4cc08a"/>
+        <path d="M29.7 193.8 A128 128 0 0 1 106.2 29.7" stroke="#8fd3f0"/>
+      </g>
+      <polygon points="273.7,186 267.2,170.6 285,173.8" fill="#7fe0b4"/>
+      <polygon points="57,239.1 73.5,241.2 61.9,255" fill="#4cc08a"/>
+      <polygon points="119.4,24.9 109.3,38.2 103.1,21.2" fill="#8fd3f0"/>
+      <g text-anchor="middle" font-weight="700" font-size="13" fill="#fff">
+        <circle cx="266" cy="204" r="19" fill="#0c4a38" stroke="#7fe0b4" stroke-width="2"/><text x="266" y="209">€</text>
+        <circle cx="45" cy="223" r="19" fill="#0c4a38" stroke="#4cc08a" stroke-width="2"/><text x="45" y="228">kg</text>
+        <circle cx="139" cy="22" r="19" fill="#0a3358" stroke="#8fd3f0" stroke-width="2"/><text x="139" y="27" font-size="11">CO₂</text>
+      </g>
+      <circle cx="150" cy="150" r="88" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)"/>
+      <path d="M150 84 c-14 0 -22 10 -22 20 c10 0 16 -2 22 -8 c6 6 12 8 22 8 c0 -10 -8 -20 -22 -20z" fill="#7fe0b4" transform="translate(0 -2) scale(1 .8) translate(0 20)"/>
+      <path d="M96 160 v-12 q0 -6 6 -8 l14 -4 l14 -16 q3 -4 8 -4 h30 q5 0 8 4 l12 16 l14 3 q6 2 6 8 v13 q0 3 -3 3 h-8 a14 14 0 0 0 -28 0 h-34 a14 14 0 0 0 -28 0 h-8 q-3 0 -3 -3z" fill="#fff" transform="translate(0 -4)"/>
+      <circle cx="124" cy="159" r="9" fill="#0b3d66"/>
+      <circle cx="184" cy="159" r="9" fill="#0b3d66"/>
+      <path d="M144 124 h14 l8 14 h-34z" fill="#8fd3f0" opacity=".85"/>
+      <line x1="112" y1="204" x2="188" y2="204" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+      <rect x="120" y="190" width="9" height="14" rx="2" fill="#8fd3f0"/>
+      <rect x="136" y="182" width="9" height="22" rx="2" fill="#4cc08a"/>
+      <rect x="152" y="174" width="9" height="30" rx="2" fill="#7fe0b4"/>
+      <rect x="168" y="186" width="9" height="18" rx="2" fill="#8fd3f0"/>
+      <circle cx="206" cy="104" r="13" fill="rgba(10,51,88,.6)" stroke="#fff" stroke-width="3"/>
+      <line x1="215" y1="113" x2="225" y2="123" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <div class="wrap mision">
+    <div class="caja">
+      <div class="icono" aria-hidden="true">🎯</div>
+      <div>
+        <h3>Nuestra misión</h3>
+        <p>MotorBalear S.L. ha detectado diversos problemas ambientales y sociales. Tu trabajo consistirá en analizarlos, proponer mejoras y construir paso a paso un Plan de Sostenibilidad que permita al taller afrontar los retos del futuro.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="bloque" id="empresa">
+    <div class="wrap">
+      <div class="titulo"><h2>MOTORBALEAR S.L.</h2></div>
+      <div class="empresa">
+        <dl class="ficha">
+          <div><dt>Sector</dt><dd>Automoción</dd></div>
+          <div><dt>Actividad</dt><dd>Electromecánica y carrocería</dd></div>
+          <div><dt>Ubicación</dt><dd>Palma de Mallorca</dd></div>
+          <div><dt>Plantilla</dt><dd>24 personas</dd></div>
+          <div><dt>Objetivo</dt><dd>Plan de sostenibilidad 2026-2028</dd></div>
+        </dl>
+        <figure class="cita">
+          <blockquote>No queremos un folleto verde.<br>Queremos saber cuánto gastamos, cuánto tiramos y cuánto podemos ahorrar.<br>Si el plan no se sostiene con números, no se sostiene.</blockquote>
+          <figcaption>Dirección de MotorBalear S.L.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" id="unidades">
+    <div class="wrap">
+      <div class="titulo">
+        <h2>Unidades del proyecto</h2>
+        <p>Seis unidades, un único proyecto: cada una te acerca al Plan final.</p>
+      </div>
+
+      <div class="progreso" role="group" aria-label="Progreso del proyecto">
+        <strong>Progreso del proyecto</strong>
+        <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2" aria-label="2 de 6 unidades disponibles"><span></span></div>
+        <small>2 de 6 unidades disponibles</small>
+      </div>
+
+      <div class="rejilla">
+        <a class="tarjeta disponible" href="unidades/ud1.html">
+          <div class="cab"><span class="emoji" aria-hidden="true">♻️</span><span class="ud">Unidad 1</span></div>
+          <h3>La sostenibilidad en las organizaciones</h3>
+          <div class="resultado"><b>Resultado</b>Diagnóstico inicial de MotorBalear</div>
+          <div class="pie-tarjeta"><span class="estado">Disponible</span><span class="accion">Entrar</span></div>
+        </a>
+
+        <a class="tarjeta disponible" href="unidades/ud2.html">
+          <div class="cab"><span class="emoji" aria-hidden="true">🔍</span><span class="ud">Unidad 2</span></div>
+          <h3>Retos ambientales y sociales</h3>
+          <div class="resultado"><b>Resultado</b>Diagnóstico de retos ambientales y sociales</div>
+          <div class="pie-tarjeta"><span class="estado">Disponible</span><span class="accion">Entrar</span></div>
+        </a>
+
+        <a class="tarjeta proximamente" href="unidades/ud3.html" aria-disabled="true" tabindex="-1">
+          <div class="cab"><span class="emoji" aria-hidden="true">🎯</span><span class="ud">Unidad 3</span></div>
+          <h3>ODS y desempeño profesional</h3>
+          <div class="resultado"><b>Resultado</b>Selección de objetivos prioritarios</div>
+          <div class="pie-tarjeta"><span class="estado">Próximamente</span></div>
+        </a>
+
+        <a class="tarjeta proximamente" href="unidades/ud4.html" aria-disabled="true" tabindex="-1">
+          <div class="cab"><span class="emoji" aria-hidden="true">🔄</span><span class="ud">Unidad 4</span></div>
+          <h3>Economía circular</h3>
+          <div class="resultado"><b>Resultado</b>Propuestas de mejora circular</div>
+          <div class="pie-tarjeta"><span class="estado">Próximamente</span></div>
+        </a>
+
+        <a class="tarjeta proximamente" href="unidades/ud5.html" aria-disabled="true" tabindex="-1">
+          <div class="cab"><span class="emoji" aria-hidden="true">📈</span><span class="ud">Unidad 5</span></div>
+          <h3>Actividades sostenibles e impacto ambiental</h3>
+          <div class="resultado"><b>Resultado</b>Indicadores y seguimiento</div>
+          <div class="pie-tarjeta"><span class="estado">Próximamente</span></div>
+        </a>
+
+        <a class="tarjeta proximamente" href="unidades/ud6.html" aria-disabled="true" tabindex="-1">
+          <div class="cab"><span class="emoji" aria-hidden="true">📋</span><span class="ud">Unidad 6</span></div>
+          <h3>Plan de sostenibilidad</h3>
+          <div class="resultado"><b>Resultado</b>Plan final integrado</div>
+          <div class="pie-tarjeta"><span class="estado">Próximamente</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" id="hoja-de-ruta">
+    <div class="wrap">
+      <div class="titulo">
+        <h2>🛣️ Hoja de ruta del proyecto</h2>
+      </div>
+      <div class="ruta">
+        <ol class="pasos">
+          <li class="paso hecho"><span class="nodo">UD1</span><div><h3>Diagnóstico inicial</h3></div></li>
+          <li class="paso hecho"><span class="nodo">UD2</span><div><h3>Retos ambientales y sociales</h3></div></li>
+          <li class="paso"><span class="nodo">UD3</span><div><h3>ODS prioritarios</h3></div></li>
+          <li class="paso"><span class="nodo">UD4</span><div><h3>Economía circular</h3></div></li>
+          <li class="paso"><span class="nodo">UD5</span><div><h3>Indicadores y seguimiento</h3></div></li>
+          <li class="paso"><span class="nodo">UD6</span><div><h3>Plan de sostenibilidad final</h3></div></li>
+        </ol>
+        <p class="nota">Cada unidad aporta una nueva pieza al Plan de Sostenibilidad de MotorBalear S.L.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Sostenibilidad Aplicada al Sistema Productivo</strong>
+    <p>CFGM Electromecánica y Carrocería</p>
+    <p>Proyecto MotorBalear S.L.</p>
+  </div>
+</footer>
+
+</body>
+</html>
