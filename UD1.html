@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SASP · Unidad 1 — La sostenibilidad en las organizaciones empresariales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1F4E79;
+  --blue-dark:#153953;
+  --blue-soft:#e8eff5;
+  --green:#70AD47;
+  --green-soft:#eaf4e1;
+  --green-dark:#4f7a30;
+  --gray:#F5F7FA;
+  --white:#FFFFFF;
+  --text:#333333;
+  --text-soft:#6b7480;
+  --line:#e1e6ec;
+  --radius:14px;
+  --shadow:0 6px 20px rgba(31,78,121,0.08);
+  --amb:#3f8f5f;
+  --soc:#c07a2b;
+  --eco:#1F4E79;
+  color-scheme: light;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; font-family:'Inter',system-ui,sans-serif; color:var(--text); background:var(--gray);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  min-height:100vh;
+}
+h1,h2,h3,h4{font-family:'Manrope',system-ui,sans-serif; color:var(--blue-dark); margin:0 0 .4em 0; line-height:1.2;}
+p{line-height:1.6; margin:0 0 1em 0;}
+a{color:inherit;}
+img,svg{max-width:100%;}
+::selection{background:var(--green-soft); color:var(--blue-dark);}
+
+/* ===== LAYOUT ===== */
+.app{display:flex; min-height:100vh;}
+.sidebar{
+  width:270px; background:var(--blue); color:#fff; position:fixed; top:0; left:0; bottom:0;
+  padding:22px 16px 16px; display:flex; flex-direction:column; gap:14px; z-index:40;
+  padding-top:calc(22px + env(safe-area-inset-top,0px));
+  transform:translateX(0); transition:transform .25s ease;
+}
+.brand{display:flex; align-items:center; gap:10px; padding:2px 6px 14px; border-bottom:1px solid rgba(255,255,255,.15);}
+.brand .mark{width:38px;height:38px;border-radius:10px;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:20px;flex:none;}
+.brand h1{font-size:15px; color:#fff; margin:0;}
+.brand span{display:block; font-size:11px; color:rgba(255,255,255,.65); font-weight:500;}
+
+.progress-wrap{padding:2px 6px 10px;}
+.progress-label{display:flex; justify-content:space-between; font-size:11px; color:rgba(255,255,255,.75); margin-bottom:6px;}
+.progress-track{height:7px; border-radius:99px; background:rgba(255,255,255,.18); overflow:hidden;}
+.progress-fill{height:100%; background:var(--green); width:0%; transition:width .4s ease; border-radius:99px;}
+
+.nav{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; overflow-y:auto; flex:1;}
+.nav li a{
+  display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:9px; font-size:13.5px;
+  color:rgba(255,255,255,.82); text-decoration:none; font-weight:500; cursor:pointer;
+  border:1px solid transparent;
+}
+.nav li a .ico{width:20px; text-align:center; flex:none;}
+.nav li a:hover{background:rgba(255,255,255,.08); color:#fff;}
+.nav li a.active{background:#fff; color:var(--blue-dark); font-weight:700;}
+.nav li a .tick{margin-left:auto; font-size:11px; color:var(--green); opacity:0; flex:none;}
+.nav li a.done .tick{opacity:1;}
+.nav li a.active .tick{color:var(--green);}
+
+.sidebar-foot{font-size:10.5px; color:rgba(255,255,255,.5); padding:8px 6px 0; border-top:1px solid rgba(255,255,255,.12);}
+
+.menu-toggle{
+  display:none; position:fixed; top:calc(14px + env(safe-area-inset-top,0px)); left:14px; z-index:60;
+  width:42px; height:42px; border-radius:10px; background:var(--blue); color:#fff; border:none; font-size:18px;
+  box-shadow:var(--shadow); cursor:pointer;
+}
+.overlay{display:none; position:fixed; inset:0; background:rgba(15,30,45,.45); z-index:35;}
+
+main{margin-left:270px; flex:1; min-width:0; padding:34px 40px 80px;}
+.section{display:none; animation:fadein .35s ease;}
+.section.active{display:block;}
+@keyframes fadein{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+.eyebrow{display:inline-block; background:var(--green-soft); color:var(--green-dark); font-size:12px; font-weight:700; padding:4px 12px; border-radius:99px; margin-bottom:12px;}
+.section-head{margin-bottom:26px;}
+.section-head p.lead{font-size:16.5px; color:var(--text-soft); max-width:680px;}
+
+/* ===== CARDS GENERIC ===== */
+.grid{display:grid; gap:18px;}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-2{grid-template-columns:repeat(2,1fr);}
+@media(max-width:1000px){.grid-3{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:700px){.grid-3,.grid-2{grid-template-columns:1fr;} }
+
+.card{
+  background:var(--white); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow);
+  border:1px solid var(--line); transition:transform .18s ease, box-shadow .18s ease; cursor:default;
+}
+.card.clickable{cursor:pointer;}
+.card.clickable:hover{transform:translateY(-4px); box-shadow:0 14px 30px rgba(31,78,121,.14); border-color:#cddcea;}
+.card .icon{font-size:26px; display:inline-flex; width:46px; height:46px; align-items:center; justify-content:center; background:var(--blue-soft); border-radius:12px; margin-bottom:12px;}
+.card h3{font-size:16px;}
+.card p{font-size:13.8px; color:var(--text-soft); margin:0;}
+
+/* dashboard hero */
+.hero{
+  background:linear-gradient(120deg,var(--blue) 0%, #266a99 100%); color:#fff; border-radius:18px;
+  padding:34px 34px; margin-bottom:28px; position:relative; overflow:hidden;
+}
+.hero::after{content:""; position:absolute; right:-40px; top:-60px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,.08);}
+.hero .tag{font-size:12px; letter-spacing:.02em; color:#c9e3d1; font-weight:700; text-transform:uppercase; opacity:.9;}
+.hero h2{color:#fff; font-size:26px; margin:6px 0 10px; max-width:640px;}
+.hero .question{
+  font-size:19px; font-weight:600; background:rgba(255,255,255,.12); border-left:4px solid var(--green);
+  padding:12px 16px; border-radius:8px; max-width:600px;
+}
+
+.dash-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media(max-width:1000px){.dash-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.dash-grid{grid-template-columns:1fr;}}
+.dash-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:18px 18px 16px; cursor:pointer; transition:.18s; box-shadow:var(--shadow); position:relative;}
+.dash-card:hover{transform:translateY(-4px); border-color:var(--green);}
+.dash-card .icon{font-size:24px;}
+.dash-card h3{font-size:15px; margin:10px 0 4px;}
+.dash-card p{font-size:12.8px; color:var(--text-soft);}
+.dash-card .go{position:absolute; right:16px; bottom:14px; font-size:12px; color:var(--green-dark); font-weight:700; opacity:0; transition:.18s;}
+.dash-card:hover .go{opacity:1;}
+
+/* accordion (native details styled) */
+details.acc{background:var(--white); border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden;}
+details.acc summary{list-style:none; cursor:pointer; padding:14px 18px; font-weight:700; color:var(--blue-dark); display:flex; align-items:center; gap:10px; font-size:14.5px;}
+details.acc summary::-webkit-details-marker{display:none;}
+details.acc summary::after{content:"+"; margin-left:auto; font-size:20px; color:var(--green-dark); font-weight:400;}
+details.acc[open] summary::after{content:"–";}
+details.acc .acc-body{padding:0 18px 16px; font-size:13.8px; color:var(--text-soft);}
+details.acc[open]{border-color:var(--green);}
+
+/* pillar cards */
+.pillar{border-top:5px solid var(--blue); }
+.pillar.amb{border-top-color:var(--amb);}
+.pillar.soc{border-top-color:var(--soc);}
+.pillar.eco{border-top-color:var(--eco);}
+.pillar h3{display:flex; align-items:center; gap:8px;}
+
+/* ODS flip cards */
+.flip-outer{perspective:1200px; height:210px;}
+.flip-inner{position:relative; width:100%; height:100%; transition:transform .55s; transform-style:preserve-3d; border-radius:var(--radius); cursor:pointer;}
+.flip-outer.flipped .flip-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius); padding:18px; display:flex; flex-direction:column; justify-content:center; box-shadow:var(--shadow);}
+.flip-front{background:var(--blue); color:#fff; text-align:center;}
+.flip-front .num{font-size:12px; opacity:.75; font-weight:700;}
+.flip-front .ic{font-size:32px; margin:8px 0;}
+.flip-front h4{color:#fff; font-size:15px; margin:0;}
+.flip-back{background:var(--white); transform:rotateY(180deg); border:1px solid var(--green); font-size:13px; color:var(--text-soft);}
+.flip-back strong{color:var(--blue-dark); display:block; margin-bottom:6px; font-size:13.5px;}
+.flip-hint{text-align:center; font-size:11px; color:var(--text-soft); margin-top:6px;}
+
+/* ASG diagram */
+.asg-wrap{display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px;}
+.asg-btn{
+  flex:1; min-width:160px; border:none; border-radius:14px; padding:22px 16px; cursor:pointer; color:#fff;
+  font-family:'Manrope'; font-weight:800; font-size:22px; text-align:left; transition:.18s; box-shadow:var(--shadow);
+}
+.asg-btn small{display:block; font-family:'Inter'; font-weight:500; font-size:12.5px; opacity:.9; margin-top:4px;}
+.asg-btn.a{background:var(--amb);} .asg-btn.s{background:var(--soc);} .asg-btn.g{background:var(--blue);}
+.asg-btn.active{transform:scale(1.03); box-shadow:0 14px 26px rgba(0,0,0,.18);}
+.asg-panel{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px; min-height:120px;}
+.asg-panel ul{margin:0; padding-left:18px;}
+.asg-panel li{margin-bottom:6px; font-size:14px;}
+
+/* stakeholder map */
+.map-wrap{position:relative; width:100%; max-width:640px; height:460px; margin:10px auto 0;}
+.map-center{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:150px; height:150px; border-radius:50%;
+  background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'Manrope'; font-weight:800; font-size:14px; padding:10px; box-shadow:0 10px 26px rgba(31,78,121,.35); z-index:2;
+}
+.node{
+  position:absolute; width:118px; padding:10px 8px; border-radius:12px; background:var(--white); border:2px solid var(--green);
+  text-align:center; font-size:12.5px; font-weight:700; color:var(--blue-dark); cursor:pointer; box-shadow:var(--shadow);
+  transition:.18s;
+}
+.node:hover, .node.active{background:var(--green); color:#fff; transform:scale(1.06);}
+.map-info{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:18px; margin-top:16px; font-size:14px; color:var(--text-soft); min-height:70px;}
+.map-info strong{color:var(--blue-dark); display:block; margin-bottom:4px;}
+
+/* KPI dashboard */
+.kpi-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);}
+.kpi-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+.kpi-top .ic{font-size:22px;}
+.kpi-val{font-family:'Manrope'; font-size:26px; font-weight:800; color:var(--blue-dark);}
+.kpi-target{font-size:12px; color:var(--text-soft); margin-bottom:8px;}
+.kpi-bar{height:9px; background:var(--gray); border-radius:99px; overflow:hidden;}
+.kpi-bar span{display:block; height:100%; border-radius:99px; background:var(--green);}
+.kpi-trend{font-size:12px; margin-top:6px; font-weight:700;}
+.trend-up{color:var(--green-dark);} .trend-warn{color:#b3541e;}
+
+/* workshop zone */
+.zone-banner{background:var(--green); color:#fff; padding:16px 22px; border-radius:14px; font-family:'Manrope'; font-weight:800; font-size:17px; margin-bottom:24px; display:flex; align-items:center; gap:10px;}
+.activity{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:22px; margin-bottom:22px; box-shadow:var(--shadow);}
+.activity h3{font-size:17px; display:flex; align-items:center; gap:8px;}
+.activity .instructions{font-size:13.8px; color:var(--text-soft); margin-bottom:16px;}
+
+.chip-pool{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px;}
+.chip{
+  background:var(--blue-soft); color:var(--blue-dark); border:1px solid #cfe0ee; border-radius:99px; padding:8px 14px;
+  font-size:13px; font-weight:600; cursor:pointer; transition:.15s;
+}
+.chip.placed{opacity:.35; cursor:default; pointer-events:none;}
+.chip:hover:not(.placed){background:var(--blue); color:#fff;}
+.buckets{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+@media(max-width:700px){.buckets{grid-template-columns:1fr;}}
+.bucket{border:2px dashed var(--line); border-radius:12px; padding:12px; min-height:120px;}
+.bucket h4{font-size:13px; margin:0 0 8px; text-transform:none;}
+.bucket.amb{border-color:var(--amb);} .bucket.soc{border-color:var(--soc);} .bucket.eco{border-color:var(--eco);}
+.bucket .placedchip{display:inline-block; margin:3px; padding:6px 11px; border-radius:99px; color:#fff; font-size:12.5px; font-weight:600;}
+.bucket.amb .placedchip{background:var(--amb);} .bucket.soc .placedchip{background:var(--soc);} .bucket.eco .placedchip{background:var(--eco);}
+.check-btn{background:var(--blue); color:#fff; border:none; padding:10px 20px; border-radius:9px; font-weight:700; cursor:pointer; font-size:13.5px; margin-top:14px;}
+.check-btn:hover{background:var(--blue-dark);}
+.reset-btn{background:none; border:1px solid var(--line); padding:10px 16px; border-radius:9px; font-weight:600; cursor:pointer; font-size:13px; margin-top:14px; margin-left:8px; color:var(--text-soft);}
+.feedback{margin-top:12px; font-size:13.8px; font-weight:600; padding:10px 14px; border-radius:9px; display:none;}
+.feedback.ok{background:var(--green-soft); color:var(--green-dark); display:block;}
+.feedback.warn{background:#fdeee0; color:#a34e13; display:block;}
+
+textarea, input[type=text]{
+  width:100%; border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-family:'Inter'; font-size:13.8px;
+  color:var(--text); resize:vertical; background:var(--gray);
+}
+textarea:focus, input[type=text]:focus{outline:2px solid var(--green); outline-offset:1px; background:#fff;}
+.field-label{font-size:12.5px; font-weight:700; color:var(--blue-dark); margin-bottom:5px; display:block;}
+.field{margin-bottom:14px;}
+.save-note{font-size:12px; color:var(--green-dark); font-weight:600; opacity:0; transition:opacity .3s;}
+.save-note.show{opacity:1;}
+
+.det-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+@media(max-width:800px){.det-grid{grid-template-columns:1fr;}}
+.det-col h4{font-size:13.5px; margin-bottom:8px; padding:6px 10px; border-radius:8px; color:#fff; display:inline-block;}
+.det-col.a h4{background:var(--amb);} .det-col.s h4{background:var(--soc);} .det-col.g h4{background:var(--blue);}
+
+/* summary */
+.rec-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
+@media(max-width:800px){.rec-grid{grid-template-columns:1fr;}}
+.rec-card{background:var(--white); border-radius:var(--radius); padding:20px; border:1px solid var(--line); box-shadow:var(--shadow);}
+.rec-card h3{font-size:15px;}
+.rec-card ul{margin:0; padding-left:18px; font-size:13.8px; color:var(--text-soft);}
+.rec-card li{margin-bottom:7px;}
+.reflect-box{background:var(--blue-soft); border-left:4px solid var(--blue); border-radius:10px; padding:18px; margin-top:22px;}
+.reflect-box h4{margin-bottom:8px;}
+
+.nav-footer{display:flex; justify-content:space-between; margin-top:36px; gap:12px;}
+.nav-footer button{
+  background:var(--white); border:1px solid var(--line); padding:11px 18px; border-radius:9px; font-weight:700;
+  cursor:pointer; font-size:13.5px; color:var(--blue-dark); box-shadow:var(--shadow);
+}
+.nav-footer button:hover{border-color:var(--green); color:var(--green-dark);}
+.nav-footer button.primary{background:var(--green); color:#fff; border-color:var(--green);}
+.nav-footer button.primary:hover{background:var(--green-dark); color:#fff;}
+
+.example-box{background:var(--green-soft); border-left:4px solid var(--green); border-radius:10px; padding:14px 16px; margin:14px 0; font-size:13.8px;}
+.example-box strong{color:var(--green-dark); display:block; margin-bottom:3px; font-size:13px;}
+.compare-toggle{display:flex; gap:10px; margin:18px 0 6px;}
+.compare-toggle button{flex:1; padding:11px; border-radius:9px; border:1px solid var(--line); background:var(--white); font-weight:700; cursor:pointer; font-size:13.5px;}
+.compare-toggle button.on{background:var(--blue); color:#fff; border-color:var(--blue);}
+.compare-view{display:none; background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px; font-size:14px; color:var(--text-soft);}
+.compare-view.show{display:block;}
+
+/* aplicación al taller */
+.app-taller{background:var(--white); border:1px solid var(--line); border-top:5px solid var(--green); border-radius:var(--radius); padding:20px; margin-top:20px; box-shadow:var(--shadow);}
+.app-taller h3{font-size:15px; margin-bottom:12px;}
+.app-taller-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+@media(max-width:700px){.app-taller-grid{grid-template-columns:1fr;}}
+.app-taller-col h4{font-size:12.5px; color:var(--blue-dark); margin:0 0 5px; font-weight:700;}
+.app-taller-col p{font-size:13px; color:var(--text-soft); margin:0;}
+
+/* quiz / autoevaluación */
+.quiz-card{background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:22px; margin-top:24px; box-shadow:var(--shadow);}
+.quiz-q{margin-bottom:18px;}
+.quiz-q p.qtext{font-weight:700; color:var(--blue-dark); font-size:14px; margin-bottom:9px;}
+.quiz-opt{display:flex; align-items:center; gap:8px; padding:9px 12px; border:1px solid var(--line); border-radius:9px; margin-bottom:6px; cursor:pointer; font-size:13.5px;}
+.quiz-opt:hover{border-color:var(--green);}
+.quiz-opt input{margin:0;}
+.quiz-result{margin-top:16px; padding:14px 16px; border-radius:9px; font-weight:700; font-size:14.5px; display:none;}
+.quiz-result.show{display:block;}
+.quiz-result.low{background:#fdeee0; color:#a34e13;}
+.quiz-result.mid{background:var(--blue-soft); color:var(--blue-dark);}
+.quiz-result.high{background:var(--green-soft); color:var(--green-dark);}
+
+@media(max-width:880px){
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:translateX(0);}
+  .menu-toggle{display:block;}
+  .overlay.show{display:block;}
+  main{margin-left:0; padding:76px 18px 60px;}
+  .grid-3, .grid-2, .dash-grid{grid-template-columns:1fr;}
+  .hero h2{font-size:21px;}
+}
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+<div class="overlay" id="overlay"></div>
+
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="mark">🔧</div>
+      <div>
+        <h1>SASP</h1>
+        <span>Unidad 1 · Sostenibilidad</span>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progreso</span><span id="progressText">0 / 10</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <ul class="nav" id="navList">
+      <li><a data-target="dashboard" class="active"><span class="ico">🏠</span>Dashboard<span class="tick">✓</span></a></li>
+      <li><a data-target="b1"><span class="ico">🌱</span>Qué es la sostenibilidad<span class="tick">✓</span></a></li>
+      <li><a data-target="b2"><span class="ico">♻️</span>Los tres pilares<span class="tick">✓</span></a></li>
+      <li><a data-target="b3"><span class="ico">🎯</span>Agenda 2030<span class="tick">✓</span></a></li>
+      <li><a data-target="b4"><span class="ico">🚗</span>ODS y Automoción<span class="tick">✓</span></a></li>
+      <li><a data-target="b5"><span class="ico">🏭</span>Criterios ASG<span class="tick">✓</span></a></li>
+      <li><a data-target="b6"><span class="ico">👥</span>Stakeholders<span class="tick">✓</span></a></li>
+      <li><a data-target="b7"><span class="ico">📊</span>Indicadores<span class="tick">✓</span></a></li>
+      <li><a data-target="b8"><span class="ico">🔧</span>Zona Taller<span class="tick">✓</span></a></li>
+      <li><a data-target="proyecto"><span class="ico">📂</span>Mi Proyecto<span class="tick">✓</span></a></li>
+      <li><a data-target="resumen"><span class="ico">✅</span>Resumen<span class="tick">✓</span></a></li>
+    </ul>
+
+    <div class="sidebar-foot">CFGM Electromecánica · CFGM Carrocería — Módulo SASP</div>
+  </aside>
+
+  <main id="main">
+
+    <!-- DASHBOARD -->
+    <section class="section active" id="dashboard">
+      <div class="hero">
+        <div class="tag">Unidad 1</div>
+        <h2>La sostenibilidad en las organizaciones empresariales</h2>
+        <div class="question">¿Puede un taller ser rentable, seguro y sostenible al mismo tiempo?</div>
+      </div>
+      <div class="section-head">
+        <p class="lead">Recorre los bloques en el orden que quieras. Cada tarjeta abre un espacio de trabajo distinto, siempre conectado con lo que pasa cada día en un taller de electromecánica o de carrocería.</p>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card" data-target="b1"><div class="icon">🌱</div><h3>Qué es la sostenibilidad</h3><p>De la teoría al taller: aceites, baterías y seguridad.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b2"><div class="icon">♻️</div><h3>Los tres pilares</h3><p>Ambiental, social y económico, con ejemplos reales.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b3"><div class="icon">🎯</div><h3>Agenda 2030</h3><p>Qué es y por qué le importa a una empresa de automoción.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b4"><div class="icon">🚗</div><h3>ODS y Automoción</h3><p>Los 5 objetivos que más tocan a tu futuro taller.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b5"><div class="icon">🏭</div><h3>Criterios ASG</h3><p>Ambiental, Social, Gobernanza: el lenguaje de la empresa.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b6"><div class="icon">👥</div><h3>Stakeholders</h3><p>Quién rodea a un taller y qué espera de él.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b7"><div class="icon">📊</div><h3>Indicadores</h3><p>Un dashboard de KPI como el de una empresa real.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="b8"><div class="icon">🔧</div><h3>Zona Taller</h3><p>Tres actividades prácticas para aplicar lo aprendido.</p><div class="go">Entrar →</div></div>
+        <div class="dash-card" data-target="resumen"><div class="icon">✅</div><h3>Resumen</h3><p>Ideas clave, errores frecuentes y una pregunta final.</p><div class="go">Entrar →</div></div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 1 -->
+    <section class="section" id="b1">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 1</span>
+        <h2>¿Qué es la sostenibilidad?</h2>
+        <p class="lead">Observa primero, comprende después. Todo taller consume recursos, genera residuos y trabaja con personas: ahí empieza la sostenibilidad.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <h3>Definición sencilla</h3>
+        <p>Sostenibilidad es la capacidad de <strong>satisfacer las necesidades de hoy sin comprometer los recursos de mañana</strong>. Aplicado a un taller: reparar coches, ganar dinero y cuidar a las personas y al entorno, todo a la vez, sin agotar lo que necesitarás el año que viene.</p>
+      </div>
+
+      <h3 style="margin-bottom:10px;">Un mismo gesto, tres lecturas</h3>
+      <div class="grid grid-3">
+        <div class="card"><div class="icon">🛢️</div><h3>Aceites usados</h3><p>Si se vierten, contaminan suelo y agua. Si se gestionan en el punto verde, se pueden regenerar y reutilizar como combustible industrial.</p></div>
+        <div class="card"><div class="icon">🔋</div><h3>Baterías</h3><p>Contienen metales pesados y ácidos. Gestionadas correctamente, se reciclan hasta un 95% de sus materiales.</p></div>
+        <div class="card"><div class="icon">♻️</div><h3>Reciclaje de piezas</h3><p>Filtros, neumáticos y chapa mal gestionados son residuo. Bien separados, son materia prima para otra industria.</p></div>
+        <div class="card"><div class="icon">🦺</div><h3>Seguridad laboral</h3><p>Un mecánico expuesto a disolventes o cargas mal manipuladas es un coste humano y también económico (bajas, sanciones).</p></div>
+        <div class="card"><div class="icon">💶</div><h3>Rentabilidad</h3><p>Reducir residuos y consumo energético no es un gasto: en la mayoría de talleres reduce costes a medio plazo.</p></div>
+        <div class="card"><div class="icon">🔍</div><h3>La idea clave</h3><p>Lo ambiental, lo social y lo económico no compiten entre sí en un taller bien gestionado: se refuerzan.</p></div>
+      </div>
+
+      <h3 style="margin:26px 0 6px;">Compara dos talleres</h3>
+      <div class="compare-toggle">
+        <button id="btnSinS" class="on">Taller sin criterio de sostenibilidad</button>
+        <button id="btnConS">Taller con criterio de sostenibilidad</button>
+      </div>
+      <div class="compare-view show" id="viewSin">
+        <p>🛢️ Los aceites y trapos con disolvente se acumulan sin separar. 🔋 Las baterías agotadas se guardan "para cuando venga alguien a por ellas". 🦺 No hay ficha de seguridad visible para los productos químicos. 💶 Las sanciones por gestión irregular de residuos y las bajas por accidentes se convierten en un gasto recurrente e imprevisible.</p>
+      </div>
+      <div class="compare-view" id="viewCon">
+        <p>🛢️ Los aceites se almacenan en bidones homologados y los retira un gestor autorizado. 🔋 Las baterías van directas al punto verde interno, con registro documental. 🦺 Cada producto tiene su ficha de seguridad y su EPI asociado. 💶 El taller reduce sanciones, mejora su imagen ante clientes y aseguradoras, y accede a contratos que exigen certificación ambiental.</p>
+      </div>
+
+      <div class="app-taller">
+        <h3>🔧 Aplicación al Taller</h3>
+        <div class="app-taller-grid">
+          <div class="app-taller-col"><h4>Electromecánica</h4><p>El aceite de motor y de caja de cambios es el residuo diario más habitual: exige bidón homologado y registro de retirada.</p></div>
+          <div class="app-taller-col"><h4>Carrocería</h4><p>Disolventes de pintura y polvo de lijado requieren extracción y EPI específico para evitar riesgos respiratorios.</p></div>
+          <div class="app-taller-col"><h4>Punto Verde</h4><p>Es el punto de recogida interno donde se separan aceites, baterías y filtros antes de que los recoja un gestor autorizado.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 2 -->
+    <section class="section" id="b2">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 2</span>
+        <h2>Los tres pilares de la sostenibilidad</h2>
+        <p class="lead">Ninguna decisión en un taller es solo técnica: siempre tiene una lectura ambiental, una social y una económica. Despliega cada pilar.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card pillar amb">
+          <h3>🌍 Ambiental</h3>
+          <p><strong>Definición:</strong> el impacto de la actividad sobre el entorno: residuos, emisiones, consumo de agua y energía.</p>
+          <div class="example-box"><strong>En el taller</strong>Aceites, filtros, baterías, disolventes, neumáticos, polvo de lijado en carrocería.</div>
+          <div class="example-box"><strong>Impacto en la empresa</strong>Una mala gestión de residuos peligrosos puede suponer el cierre cautelar del taller.</div>
+        </div>
+        <div class="card pillar soc">
+          <h3>👷 Social</h3>
+          <p><strong>Definición:</strong> cómo la actividad afecta a las personas: trabajadores, clientes y comunidad cercana.</p>
+          <div class="example-box"><strong>En el taller</strong>EPI, formación en manejo de químicos, ergonomía en elevadores, ruido en cabina de pintura.</div>
+          <div class="example-box"><strong>Impacto en la empresa</strong>La siniestralidad laboral eleva las primas del seguro y reduce la productividad del equipo.</div>
+        </div>
+        <div class="card pillar eco">
+          <h3>💰 Económico</h3>
+          <p><strong>Definición:</strong> la viabilidad financiera de la actividad a corto y largo plazo.</p>
+          <div class="example-box"><strong>En el taller</strong>Coste de gestión de residuos, ahorro energético, acceso a subvenciones, fidelización de clientes.</div>
+          <div class="example-box"><strong>Impacto en la empresa</strong>Los talleres certificados acceden a flotas y aseguradoras que exigen criterios ASG a sus proveedores.</div>
+        </div>
+      </div>
+
+      <div class="app-taller">
+        <h3>🔧 Aplicación al Taller</h3>
+        <div class="app-taller-grid">
+          <div class="app-taller-col"><h4>Electromecánica</h4><p>Un cambio de aceite mal hecho afecta a los tres pilares: contamina, pone en riesgo al mecánico y puede acabar en sanción.</p></div>
+          <div class="app-taller-col"><h4>Carrocería</h4><p>La cabina de pintura combina impacto ambiental (emisiones), social (salud) y económico (coste del equipo de extracción).</p></div>
+          <div class="app-taller-col"><h4>Punto Verde</h4><p>Organizarlo bien reduce el impacto ambiental y, además, ahorra tiempo y dinero al taller en cada retirada de residuos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 3 -->
+    <section class="section" id="b3">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 3</span>
+        <h2>Agenda 2030</h2>
+        <p class="lead">Un acuerdo internacional, no una lista de deberes para el taller. Aun así, marca hacia dónde se mueven las normativas y los clientes que contratarán tus servicios.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>¿Qué es?</h3>
+          <p>Un plan aprobado por la ONU en 2015, con horizonte 2030, formado por <strong>17 Objetivos de Desarrollo Sostenible (ODS)</strong> que buscan equilibrar desarrollo económico, inclusión social y protección ambiental en todos los países.</p>
+        </div>
+        <div class="card">
+          <h3>¿Por qué le importa a una empresa?</h3>
+          <p>Porque las administraciones, los clientes y las aseguradoras empiezan a exigir o premiar a las empresas que trabajan alineadas con estos objetivos: menos residuos, más seguridad, mejor gobernanza.</p>
+        </div>
+      </div>
+      <h3 style="margin:22px 0 10px;">Los 17 ODS, de un vistazo</h3>
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:12px;">Pasa el cursor o toca cada punto — en el bloque siguiente profundizamos en los 5 que más tocan a la automoción.</p>
+      <div id="odsWheel" class="grid" style="grid-template-columns:repeat(17,1fr); gap:6px;"></div>
+    </section>
+
+    <!-- BLOQUE 4 -->
+    <section class="section" id="b4">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 4</span>
+        <h2>ODS relacionados con automoción</h2>
+        <p class="lead">Toca cada tarjeta para girarla y ver su relación directa con un taller.</p>
+      </div>
+      <div class="grid grid-3" id="odsFlipGrid"></div>
+    </section>
+
+    <!-- BLOQUE 5 -->
+    <section class="section" id="b5">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 5</span>
+        <h2>Criterios ASG</h2>
+        <p class="lead">El lenguaje que usan las empresas para medir su sostenibilidad. Pulsa cada letra.</p>
+      </div>
+      <div class="asg-wrap">
+        <button class="asg-btn a active" data-asg="a">A<small>Ambiental</small></button>
+        <button class="asg-btn s" data-asg="s">S<small>Social</small></button>
+        <button class="asg-btn g" data-asg="g">G<small>Gobernanza</small></button>
+      </div>
+      <div class="asg-panel" id="asgPanel"></div>
+
+      <div class="app-taller">
+        <h3>🔧 Aplicación al Taller</h3>
+        <div class="app-taller-grid">
+          <div class="app-taller-col"><h4>Electromecánica</h4><p>El registro de baterías y aceites entregados a gestor autorizado es, en la práctica, gobernanza aplicada al día a día.</p></div>
+          <div class="app-taller-col"><h4>Carrocería</h4><p>Usar EPI en la cabina de pintura es el criterio social; ventilarla correctamente, el ambiental.</p></div>
+          <div class="app-taller-col"><h4>Punto Verde</h4><p>Tener un procedimiento escrito de cómo se separan los residuos es gobernanza; separarlos bien, resultado ambiental.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 6 -->
+    <section class="section" id="b6">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 6</span>
+        <h2>Stakeholders del taller</h2>
+        <p class="lead">Nadie trabaja aislado. Pulsa cada grupo para ver qué espera del taller y qué le aporta el taller a él.</p>
+      </div>
+      <div class="map-wrap" id="mapWrap">
+        <div class="map-center">Taller de<br>Automoción</div>
+      </div>
+      <div class="map-info" id="mapInfo">Selecciona un grupo del mapa para ver su relación con el taller.</div>
+    </section>
+
+    <!-- BLOQUE 7 -->
+    <section class="section" id="b7">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 7</span>
+        <h2>Indicadores (KPI)</h2>
+        <p class="lead">Lo que no se mide no se puede mejorar. Así es como un taller sigue su propio desempeño mes a mes.</p>
+      </div>
+      <div class="grid grid-3" id="kpiGrid"></div>
+
+      <div class="app-taller">
+        <h3>🔧 Aplicación al Taller</h3>
+        <div class="app-taller-grid">
+          <div class="app-taller-col"><h4>Electromecánica</h4><p>Litros de aceite gestionado o baterías entregadas al mes son indicadores fáciles de llevar en una simple hoja de registro.</p></div>
+          <div class="app-taller-col"><h4>Carrocería</h4><p>El consumo de pintura o disolvente por vehículo permite detectar desviaciones y ajustar el proceso.</p></div>
+          <div class="app-taller-col"><h4>Punto Verde</h4><p>Contar cuántas veces al mes se llena cada contenedor ayuda a planificar mejor las retiradas.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOQUE 8 -->
+    <section class="section" id="b8">
+      <div class="section-head">
+        <span class="eyebrow">Bloque 8</span>
+        <h2>Zona Taller</h2>
+        <p class="lead">Actividades para aplicar lo que has visto. Tus respuestas se guardan mientras navegas por la unidad.</p>
+      </div>
+
+      <div class="zone-banner">🔧 Actividad 1 — Clasificación de impactos</div>
+      <div class="activity">
+        <p class="instructions">Pulsa cada situación del taller y arrástrala mentalmente a su categoría: haz clic en el bloque y luego en el cubo correcto.</p>
+        <div class="chip-pool" id="chipPool"></div>
+        <div class="buckets">
+          <div class="bucket amb" data-cat="amb"><h4>🌍 Ambiental</h4><div class="dropzone"></div></div>
+          <div class="bucket soc" data-cat="soc"><h4>👷 Social</h4><div class="dropzone"></div></div>
+          <div class="bucket eco" data-cat="eco"><h4>💰 Económico</h4><div class="dropzone"></div></div>
+        </div>
+        <button class="check-btn" id="checkAct1">Comprobar</button>
+        <button class="reset-btn" id="resetAct1">Reiniciar</button>
+        <div class="feedback" id="feedbackAct1"></div>
+      </div>
+
+      <div class="zone-banner">🕵️ Actividad 2 — Detectives ASG</div>
+      <div class="activity">
+        <p class="instructions">Recorre (mentalmente o de verdad) el taller y el punto verde de tu centro. Anota 3 aspectos ambientales, 3 sociales y 3 de gobernanza que observes.</p>
+        <div class="det-grid">
+          <div class="det-col a"><h4>Ambiental (3)</h4>
+            <div class="field"><textarea rows="4" placeholder="Ej: bidones de aceite sin etiquetar..." data-store="det-a"></textarea></div>
+          </div>
+          <div class="det-col s"><h4>Social (3)</h4>
+            <div class="field"><textarea rows="4" placeholder="Ej: falta de guantes en la zona de pintura..." data-store="det-s"></textarea></div>
+          </div>
+          <div class="det-col g"><h4>Gobernanza (3)</h4>
+            <div class="field"><textarea rows="4" placeholder="Ej: no hay registro de residuos peligrosos..." data-store="det-g"></textarea></div>
+          </div>
+        </div>
+        <span class="save-note" id="saveNoteAct2">Guardado ✓</span>
+      </div>
+
+      <div class="zone-banner">📐 Actividad 3 — Diseña tus indicadores</div>
+      <div class="activity">
+        <p class="instructions">Propón 2 indicadores ambientales, 2 económicos y 1 social para tu futuro taller. Indica qué medirían y cada cuánto.</p>
+        <div class="field"><span class="field-label">Ambiental 1</span><input type="text" data-store="ind-a1" placeholder="Ej: litros de aceite reciclado / mes"></div>
+        <div class="field"><span class="field-label">Ambiental 2</span><input type="text" data-store="ind-a2" placeholder="Ej: kWh consumidos / vehículo reparado"></div>
+        <div class="field"><span class="field-label">Económico 1</span><input type="text" data-store="ind-e1" placeholder="Ej: coste de gestión de residuos / mes"></div>
+        <div class="field"><span class="field-label">Económico 2</span><input type="text" data-store="ind-e2" placeholder="Ej: ahorro energético anual (€)"></div>
+        <div class="field"><span class="field-label">Social 1</span><input type="text" data-store="ind-s1" placeholder="Ej: nº de accidentes o incidencias / trimestre"></div>
+        <span class="save-note" id="saveNoteAct3">Guardado ✓</span>
+      </div>
+
+      <div class="zone-banner">📷 Evidencia de Taller</div>
+      <div class="activity">
+        <p class="instructions">Cuando estés en el taller o en el punto verde, utiliza este espacio para registrar situaciones reales.</p>
+        <div class="field"><span class="field-label">Observación realizada</span><textarea rows="3" placeholder="Describe brevemente lo que has observado..." data-store="evid-obs"></textarea></div>
+        <div class="field"><span class="field-label">¿Por qué puede ser un problema?</span><textarea rows="3" placeholder="Explica el riesgo o impacto..." data-store="evid-problema"></textarea></div>
+        <div class="field"><span class="field-label">¿Cómo lo mejorarías?</span><textarea rows="3" placeholder="Propón una mejora sencilla..." data-store="evid-mejora"></textarea></div>
+        <span class="save-note" id="saveNoteEvid">Guardado ✓</span>
+      </div>
+    </section>
+
+    <!-- MI PROYECTO -->
+    <section class="section" id="proyecto">
+      <div class="section-head">
+        <span class="eyebrow">Proyecto del módulo</span>
+        <h2>📂 Mi Proyecto</h2>
+        <p class="lead">Este espacio crecerá durante las siguientes unidades hasta convertirse en un plan de sostenibilidad completo.</p>
+      </div>
+      <div class="activity">
+        <div class="field"><span class="field-label">Problemas detectados</span><textarea rows="4" placeholder="Anota los problemas de sostenibilidad que vayas detectando en el taller..." data-store="proy-problemas"></textarea></div>
+        <div class="field"><span class="field-label">Oportunidades de mejora</span><textarea rows="4" placeholder="¿Qué se podría hacer mejor?" data-store="proy-oportunidades"></textarea></div>
+        <div class="field"><span class="field-label">Evidencias recogidas</span><textarea rows="4" placeholder="Enlaza aquí lo que registres en Evidencia de Taller u otras observaciones..." data-store="proy-evidencias"></textarea></div>
+        <span class="save-note" id="saveNoteProyecto">Guardado ✓</span>
+      </div>
+    </section>
+
+    <!-- RESUMEN -->
+    <section class="section" id="resumen">
+      <div class="section-head">
+        <span class="eyebrow">Cierre de unidad</span>
+        <h2>Lo que debes recordar</h2>
+        <p class="lead">Antes de cerrar la unidad, repasa estas cuatro ideas.</p>
+      </div>
+      <div class="rec-grid">
+        <div class="rec-card">
+          <h3>✅ Ideas clave</h3>
+          <ul>
+            <li>La sostenibilidad equilibra lo ambiental, lo social y lo económico: no es solo "reciclar".</li>
+            <li>Un taller sostenible es, sobre todo, más eficiente y con menos riesgo legal y laboral.</li>
+            <li>Los ODS y los criterios ASG son el lenguaje con el que las empresas miden ese equilibrio.</li>
+          </ul>
+        </div>
+        <div class="rec-card">
+          <h3>📌 Conceptos esenciales</h3>
+          <ul>
+            <li>Desarrollo sostenible, tres pilares, Agenda 2030.</li>
+            <li>Criterios ASG (Ambiental, Social, Gobernanza).</li>
+            <li>Stakeholders e indicadores (KPI).</li>
+          </ul>
+        </div>
+        <div class="rec-card">
+          <h3>⚠️ Errores frecuentes</h3>
+          <ul>
+            <li>Pensar que sostenibilidad = solo reciclaje.</li>
+            <li>Creer que ser sostenible siempre cuesta más dinero.</li>
+            <li>Confundir gobernanza con "papeleo" sin más: es la base que sostiene lo ambiental y lo social.</li>
+          </ul>
+        </div>
+        <div class="rec-card">
+          <h3>🧭 Para no perderte</h3>
+          <ul>
+            <li>Observa el taller → analiza el impacto → comprende el porqué → aplica una mejora.</li>
+            <li>Cada residuo o riesgo tiene siempre tres lecturas: ambiental, social y económica.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="reflect-box">
+        <h4>💭 Pregunta de reflexión</h4>
+        <p>Retoma la pregunta guía de la unidad: <em>¿Puede un taller ser rentable, seguro y sostenible al mismo tiempo?</em> Escribe tu respuesta con un ejemplo del bloque de Zona Taller.</p>
+        <textarea rows="4" placeholder="Escribe aquí tu reflexión..." data-store="reflexion-final"></textarea>
+        <span class="save-note" id="saveNoteReflex">Guardado ✓</span>
+      </div>
+
+      <div class="quiz-card">
+        <h3>📝 Autoevaluación rápida</h3>
+        <p style="font-size:13px; color:var(--text-soft); margin-top:-6px;">5 preguntas para comprobar si has entendido lo esencial de la unidad.</p>
+        <form id="quizForm"></form>
+        <button class="check-btn" id="checkQuiz" type="button">Corregir</button>
+        <button class="reset-btn" id="resetQuiz" type="button">Repetir</button>
+        <div class="quiz-result" id="quizResult"></div>
+      </div>
+    </section>
+
+    <div class="nav-footer">
+      <button id="btnPrev">← Anterior</button>
+      <button id="btnNext" class="primary">Siguiente →</button>
+    </div>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var ORDER = ["dashboard","b1","b2","b3","b4","b5","b6","b7","b8","proyecto","resumen"];
+  var visited = {};
+
+  function safeGet(key){
+    try{ var v = localStorage.getItem(key); return v; }catch(e){ return null; }
+  }
+  function safeSet(key,val){
+    try{ localStorage.setItem(key,val); }catch(e){}
+  }
+
+  /* ---------- restore visited state ---------- */
+  try{
+    var stored = JSON.parse(safeGet("sasp_visited") || "{}");
+    visited = stored || {};
+  }catch(e){ visited = {}; }
+
+  var sections = document.querySelectorAll(".section");
+  var navLinks = document.querySelectorAll(".nav a");
+  var sidebar = document.getElementById("sidebar");
+  var overlay = document.getElementById("overlay");
+  var menuToggle = document.getElementById("menuToggle");
+
+  function updateProgress(){
+    var count = 0;
+    ORDER.forEach(function(id){ if(visited[id]) count++; });
+    document.getElementById("progressText").textContent = count + " / " + ORDER.length;
+    document.getElementById("progressFill").style.width = Math.round(count/ORDER.length*100) + "%";
+    navLinks.forEach(function(a){
+      if(visited[a.getAttribute("data-target")]) a.classList.add("done");
+    });
+  }
+
+  function showSection(id){
+    sections.forEach(function(s){ s.classList.toggle("active", s.id === id); });
+    navLinks.forEach(function(a){ a.classList.toggle("active", a.getAttribute("data-target") === id); });
+    visited[id] = true;
+    safeSet("sasp_visited", JSON.stringify(visited));
+    updateProgress();
+    document.getElementById("main").scrollTo({top:0, behavior:"smooth"});
+    window.scrollTo({top:0, behavior:"smooth"});
+    sidebar.classList.remove("open");
+    overlay.classList.remove("show");
+  }
+
+  navLinks.forEach(function(a){
+    a.addEventListener("click", function(){ showSection(a.getAttribute("data-target")); });
+  });
+  document.querySelectorAll(".dash-card").forEach(function(c){
+    c.addEventListener("click", function(){ showSection(c.getAttribute("data-target")); });
+  });
+
+  menuToggle.addEventListener("click", function(){
+    sidebar.classList.toggle("open");
+    overlay.classList.toggle("show");
+  });
+  overlay.addEventListener("click", function(){
+    sidebar.classList.remove("open"); overlay.classList.remove("show");
+  });
+
+  document.getElementById("btnNext").addEventListener("click", function(){
+    var current = document.querySelector(".section.active").id;
+    var idx = ORDER.indexOf(current);
+    if(idx < ORDER.length - 1) showSection(ORDER[idx+1]);
+  });
+  document.getElementById("btnPrev").addEventListener("click", function(){
+    var current = document.querySelector(".section.active").id;
+    var idx = ORDER.indexOf(current);
+    if(idx > 0) showSection(ORDER[idx-1]);
+  });
+
+  updateProgress();
+  visited["dashboard"] = true;
+  safeSet("sasp_visited", JSON.stringify(visited));
+
+  /* ---------- Bloque 1: comparador ---------- */
+  var btnSin = document.getElementById("btnSinS"), btnCon = document.getElementById("btnConS");
+  var viewSin = document.getElementById("viewSin"), viewCon = document.getElementById("viewCon");
+  btnSin.addEventListener("click", function(){
+    btnSin.classList.add("on"); btnCon.classList.remove("on");
+    viewSin.classList.add("show"); viewCon.classList.remove("show");
+  });
+  btnCon.addEventListener("click", function(){
+    btnCon.classList.add("on"); btnSin.classList.remove("on");
+    viewCon.classList.add("show"); viewSin.classList.remove("show");
+  });
+
+  /* ---------- Bloque 3: rueda de 17 ODS ---------- */
+  var odsNames = [
+    "Fin de la pobreza","Hambre cero","Salud y bienestar","Educación de calidad","Igualdad de género",
+    "Agua limpia y saneamiento","Energía asequible y no contaminante","Trabajo decente y crecimiento económico",
+    "Industria, innovación e infraestructura","Reducción de las desigualdades","Ciudades y comunidades sostenibles",
+    "Producción y consumo responsables","Acción por el clima","Vida submarina","Vida de ecosistemas terrestres",
+    "Paz, justicia e instituciones sólidas","Alianzas para lograr los objetivos"
+  ];
+  var odsColors = ["#E5243B","#DDA63A","#4C9F38","#C5192D","#FF3A21","#26BDE2","#FCC30B","#A21942","#FD6925","#DD1367","#FD9D24","#BF8B2E","#3F7E44","#0A97D9","#56C02B","#00689D","#19486A"];
+  var wheel = document.getElementById("odsWheel");
+  odsNames.forEach(function(name, i){
+    var d = document.createElement("div");
+    d.title = "ODS " + (i+1) + " — " + name;
+    d.style.background = odsColors[i];
+    d.style.color = "#fff";
+    d.style.fontSize = "10px";
+    d.style.fontWeight = "800";
+    d.style.textAlign = "center";
+    d.style.padding = "10px 2px";
+    d.style.borderRadius = "8px";
+    d.style.cursor = "default";
+    d.textContent = (i+1);
+    wheel.appendChild(d);
+  });
+
+  /* ---------- Bloque 4: ODS flip cards ---------- */
+  var odsCards = [
+    {n:7, ic:"⚡", name:"Energía asequible y no contaminante", rel:"Electrificación del parque móvil, eficiencia energética del taller y uso de energía solar en cubiertas."},
+    {n:8, ic:"💼", name:"Trabajo decente y crecimiento económico", rel:"Empleo cualificado, seguridad laboral y condiciones justas en talleres y concesionarios."},
+    {n:9, ic:"🏗️", name:"Industria, innovación e infraestructura", rel:"Nuevas tecnologías de diagnóstico, vehículo eléctrico e híbrido, digitalización del taller."},
+    {n:12, ic:"♻️", name:"Producción y consumo responsables", rel:"Gestión de residuos peligrosos, reutilización de piezas y reducción de materiales de un solo uso."},
+    {n:13, ic:"🌡️", name:"Acción por el clima", rel:"Reducción de emisiones de CO2 en movilidad y en procesos como el pintado o el calentamiento de hornos."}
+  ];
+  var flipGrid = document.getElementById("odsFlipGrid");
+  odsCards.forEach(function(o){
+    var outer = document.createElement("div");
+    outer.className = "flip-outer";
+    outer.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-face flip-front"><div class="num">ODS ' + o.n + '</div><div class="ic">' + o.ic + '</div><h4>' + o.name + '</h4></div>' +
+        '<div class="flip-face flip-back"><strong>Relación con el taller</strong>' + o.rel + '</div>' +
+      '</div>';
+    outer.addEventListener("click", function(){ outer.classList.toggle("flipped"); });
+    var col = document.createElement("div");
+    col.appendChild(outer);
+    var hint = document.createElement("div");
+    hint.className = "flip-hint"; hint.textContent = "Toca para girar";
+    col.appendChild(hint);
+    flipGrid.appendChild(col);
+  });
+
+  /* ---------- Bloque 5: ASG ---------- */
+  var asgData = {
+    a: {title:"🌍 Ambiental", items:[
+      "<strong>Residuos:</strong> aceites, baterías, filtros, disolventes, neumáticos fuera de uso.",
+      "<strong>Energía:</strong> consumo eléctrico de elevadores, compresores, cabinas de pintura.",
+      "<strong>Agua:</strong> lavado de vehículos, refrigerantes, sistemas de depuración de aguas residuales."
+    ]},
+    s: {title:"👷 Social", items:[
+      "<strong>Seguridad:</strong> EPI, ventilación en cabina de pintura, manejo de cargas.",
+      "<strong>Formación:</strong> actualización en nuevas tecnologías (vehículo eléctrico, ADAS).",
+      "<strong>Salud:</strong> exposición a disolventes, ruido, posturas ergonómicas."
+    ]},
+    g: {title:"🏭 Gobernanza", items:[
+      "<strong>Normativa:</strong> cumplimiento de la legislación de residuos peligrosos y prevención de riesgos.",
+      "<strong>Gestión documental:</strong> registros de entrega a gestores autorizados, fichas de seguridad.",
+      "<strong>Procedimientos:</strong> protocolos internos de actuación ante vertidos o incidencias."
+    ]}
+  };
+  var asgPanel = document.getElementById("asgPanel");
+  var asgBtns = document.querySelectorAll(".asg-btn");
+  function renderAsg(key){
+    var d = asgData[key];
+    asgPanel.innerHTML = "<h3>" + d.title + "</h3><ul>" + d.items.map(function(i){ return "<li>" + i + "</li>"; }).join("") + "</ul>";
+  }
+  asgBtns.forEach(function(b){
+    b.addEventListener("click", function(){
+      asgBtns.forEach(function(x){ x.classList.remove("active"); });
+      b.classList.add("active");
+      renderAsg(b.getAttribute("data-asg"));
+    });
+  });
+  renderAsg("a");
+
+  /* ---------- Bloque 6: stakeholders ---------- */
+  var stakeholders = [
+    {name:"Clientes", angle:-90, info:"Esperan un servicio seguro, transparente y a precio justo. El taller les aporta confianza y trazabilidad de las reparaciones."},
+    {name:"Trabajadores", angle:-40, info:"Esperan condiciones seguras, formación continua y estabilidad. El taller depende de su cualificación y compromiso."},
+    {name:"Proveedores", angle:10, info:"Suministran piezas, productos y equipos. El taller les aporta continuidad de negocio y pagos puntuales."},
+    {name:"Administración", angle:60, info:"Exige licencias, cumplimiento normativo y fiscal. El taller aporta empleo y actividad económica local."},
+    {name:"Gestores de residuos", angle:110, info:"Retiran y tratan aceites, baterías y otros residuos peligrosos. El taller les aporta materia prima para reciclaje."},
+    {name:"Vecinos", angle:160, info:"Esperan que no haya ruido excesivo, olores ni vertidos. El taller les aporta un servicio de proximidad."},
+    {name:"Centro educativo", angle:210, info:"Envía alumnado en FCT y colabora en formación dual. El taller aporta experiencia real y posibles contrataciones."}
+  ];
+  var mapWrap = document.getElementById("mapWrap");
+  var mapInfo = document.getElementById("mapInfo");
+  var radius = 190;
+  stakeholders.forEach(function(s){
+    var rad = s.angle * Math.PI/180;
+    var x = 320 + radius*Math.cos(rad) - 59;
+    var y = 230 + radius*Math.sin(rad) - 30;
+    var node = document.createElement("div");
+    node.className = "node";
+    node.style.left = x + "px";
+    node.style.top = y + "px";
+    node.textContent = s.name;
+    node.addEventListener("click", function(){
+      document.querySelectorAll(".node").forEach(function(n){ n.classList.remove("active"); });
+      node.classList.add("active");
+      mapInfo.innerHTML = "<strong>" + s.name + "</strong>" + s.info;
+    });
+    mapWrap.appendChild(node);
+  });
+  /* mobile fallback: stack nodes if map too narrow */
+  function layoutMap(){
+    if(window.innerWidth < 620){
+      mapWrap.style.height = "auto";
+      var nodes = mapWrap.querySelectorAll(".node");
+      nodes.forEach(function(n, i){
+        n.style.position = "static";
+        n.style.margin = "6px auto";
+        n.style.width = "90%";
+      });
+      var center = mapWrap.querySelector(".map-center");
+      center.style.position = "static";
+      center.style.transform = "none";
+      center.style.margin = "0 auto 14px";
+    }
+  }
+  layoutMap();
+
+  /* ---------- Bloque 7: KPI ---------- */
+  var kpis = [
+    {ic:"⚡", name:"Consumo eléctrico", val:"312 kWh", target:"Objetivo: −10% respecto al mes anterior", pct:64, trend:"↓ 6% vs. mes anterior", cls:"trend-up"},
+    {ic:"💧", name:"Consumo de agua", val:"1.180 L", target:"Objetivo: mantener por debajo de 1.300 L", pct:80, trend:"↓ 3% vs. mes anterior", cls:"trend-up"},
+    {ic:"♻️", name:"Residuos reciclados", val:"87%", target:"Objetivo: superar el 90%", pct:87, trend:"↑ 4 puntos vs. mes anterior", cls:"trend-up"},
+    {ic:"🔋", name:"Baterías gestionadas", val:"14 uds.", target:"Objetivo: 100% con gestor autorizado", pct:100, trend:"Cumplido este mes", cls:"trend-up"},
+    {ic:"👷", name:"Accidentes laborales", val:"1 incidencia", target:"Objetivo: 0 incidencias / mes", pct:30, trend:"⚠ Revisar protocolo de EPI", cls:"trend-warn"},
+    {ic:"📈", name:"Rentabilidad", val:"+6,2%", target:"Objetivo: mantener margen sobre el 5%", pct:75, trend:"↑ estable respecto al trimestre", cls:"trend-up"}
+  ];
+  var kpiGrid = document.getElementById("kpiGrid");
+  kpis.forEach(function(k){
+    var el = document.createElement("div");
+    el.className = "kpi-card";
+    el.innerHTML =
+      '<div class="kpi-top"><span class="ic">' + k.ic + '</span><span style="font-size:12.5px;color:var(--text-soft);font-weight:600;">' + k.name + '</span></div>' +
+      '<div class="kpi-val">' + k.val + '</div>' +
+      '<div class="kpi-target">' + k.target + '</div>' +
+      '<div class="kpi-bar"><span style="width:' + k.pct + '%;"></span></div>' +
+      '<div class="kpi-trend ' + k.cls + '">' + k.trend + '</div>';
+    kpiGrid.appendChild(el);
+  });
+
+  /* ---------- Bloque 8 · Actividad 1: clasificación ---------- */
+  var items = [
+    {t:"Vertido de aceite usado al desagüe", cat:"amb"},
+    {t:"Compra de un extractor de humos para la cabina de pintura", cat:"soc"},
+    {t:"Ahorro anual al reducir el consumo eléctrico", cat:"eco"},
+    {t:"Batería agotada entregada a gestor autorizado", cat:"amb"},
+    {t:"Formación del equipo en manejo de productos químicos", cat:"soc"},
+    {t:"Multa por gestión irregular de residuos peligrosos", cat:"eco"},
+    {t:"Reducción de accidentes tras nuevo protocolo de EPI", cat:"soc"},
+    {t:"Reciclaje de neumáticos fuera de uso", cat:"amb"},
+    {t:"Ahorro en climatización del taller", cat:"eco"}
+  ];
+  var chipPool = document.getElementById("chipPool");
+  var selectedChip = null;
+  items.forEach(function(it, idx){
+    var chip = document.createElement("div");
+    chip.className = "chip";
+    chip.textContent = it.t;
+    chip.dataset.cat = it.cat;
+    chip.dataset.idx = idx;
+    chip.addEventListener("click", function(){
+      document.querySelectorAll(".chip").forEach(function(c){ c.style.outline = ""; });
+      selectedChip = chip;
+      chip.style.outline = "2px solid var(--blue)";
+    });
+    chipPool.appendChild(chip);
+  });
+  document.querySelectorAll(".bucket").forEach(function(bucket){
+    bucket.addEventListener("click", function(){
+      if(!selectedChip) return;
+      var placed = document.createElement("span");
+      placed.className = "placedchip";
+      placed.textContent = selectedChip.textContent;
+      placed.dataset.correctCat = selectedChip.dataset.cat;
+      placed.dataset.placedCat = bucket.dataset.cat;
+      bucket.querySelector(".dropzone").appendChild(placed);
+      selectedChip.classList.add("placed");
+      selectedChip = null;
+    });
+  });
+  document.getElementById("checkAct1").addEventListener("click", function(){
+    var placedChips = document.querySelectorAll(".placedchip");
+    var fb = document.getElementById("feedbackAct1");
+    if(placedChips.length === 0){
+      fb.className = "feedback warn"; fb.textContent = "Clasifica al menos una situación antes de comprobar."; return;
+    }
+    var correct = 0;
+    placedChips.forEach(function(p){
+      if(p.dataset.correctCat === p.dataset.placedCat){ correct++; p.style.outline = "2px solid #fff"; }
+      else{ p.style.outline = "2px dashed #fff"; p.style.opacity = "0.75"; }
+    });
+    fb.className = "feedback " + (correct === placedChips.length ? "ok" : "warn");
+    fb.textContent = correct + " de " + placedChips.length + " clasificadas correctamente" + (correct === placedChips.length ? ". ¡Muy bien!" : ". Revisa las marcadas con borde discontinuo.");
+  });
+  document.getElementById("resetAct1").addEventListener("click", function(){
+    document.querySelectorAll(".dropzone").forEach(function(z){ z.innerHTML = ""; });
+    document.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("placed"); c.style.outline=""; });
+    document.getElementById("feedbackAct1").className = "feedback";
+    selectedChip = null;
+  });
+
+  /* ---------- Autoevaluación ---------- */
+  var quizData = [
+    {q:"La sostenibilidad se basa en tres pilares:", opts:["Ambiental, técnica y legal","Ambiental, social y económica","Social, política y digital"], correct:1},
+    {q:"¿Qué significa la letra A de ASG?", opts:["Automoción","Ambiental","Auditoría"], correct:1},
+    {q:"¿Qué es un stakeholder?", opts:["Un tipo de residuo peligroso","Un grupo afectado por la actividad de la empresa","Un indicador económico"], correct:1},
+    {q:"¿Qué ODS está relacionado con la producción y el consumo responsables?", opts:["ODS 7","ODS 9","ODS 12"], correct:2},
+    {q:"¿Qué es un indicador?", opts:["Un dato que puede medirse para evaluar una situación","Una norma legal obligatoria","Un tipo de residuo del punto verde"], correct:0}
+  ];
+  var quizForm = document.getElementById("quizForm");
+  quizData.forEach(function(item, qi){
+    var block = document.createElement("div");
+    block.className = "quiz-q";
+    var optsHtml = item.opts.map(function(opt, oi){
+      return '<label class="quiz-opt"><input type="radio" name="q' + qi + '" value="' + oi + '"> ' + opt + '</label>';
+    }).join("");
+    block.innerHTML = '<p class="qtext">' + (qi+1) + '. ' + item.q + '</p>' + optsHtml;
+    quizForm.appendChild(block);
+  });
+  document.getElementById("checkQuiz").addEventListener("click", function(){
+    var score = 0;
+    quizData.forEach(function(item, qi){
+      var sel = quizForm.querySelector('input[name="q' + qi + '"]:checked');
+      if(sel && parseInt(sel.value,10) === item.correct) score++;
+    });
+    var result = document.getElementById("quizResult");
+    var msg, cls;
+    if(score <= 2){ msg = "Debes repasar la unidad."; cls = "low"; }
+    else if(score <= 4){ msg = "Buen nivel de comprensión."; cls = "mid"; }
+    else { msg = "Excelente. Has comprendido los conceptos fundamentales."; cls = "high"; }
+    result.textContent = "Puntuación: " + score + " / 5 — " + msg;
+    result.className = "quiz-result show " + cls;
+  });
+  document.getElementById("resetQuiz").addEventListener("click", function(){
+    quizForm.querySelectorAll('input[type=radio]').forEach(function(r){ r.checked = false; });
+    var result = document.getElementById("quizResult");
+    result.className = "quiz-result";
+    result.textContent = "";
+  });
+
+  /* ---------- persistence for textareas / inputs ---------- */
+  document.querySelectorAll("[data-store]").forEach(function(field){
+    var key = "sasp_" + field.getAttribute("data-store");
+    var saved = safeGet(key);
+    if(saved) field.value = saved;
+    var noteId = null;
+    if(field.getAttribute("data-store").indexOf("det-") === 0) noteId = "saveNoteAct2";
+    else if(field.getAttribute("data-store").indexOf("ind-") === 0) noteId = "saveNoteAct3";
+    else if(field.getAttribute("data-store").indexOf("evid-") === 0) noteId = "saveNoteEvid";
+    else if(field.getAttribute("data-store").indexOf("proy-") === 0) noteId = "saveNoteProyecto";
+    else if(field.getAttribute("data-store") === "reflexion-final") noteId = "saveNoteReflex";
+    var timer;
+    field.addEventListener("input", function(){
+      safeSet(key, field.value);
+      if(noteId){
+        var note = document.getElementById(noteId);
+        note.classList.add("show");
+        clearTimeout(timer);
+        timer = setTimeout(function(){ note.classList.remove("show"); }, 1400);
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
