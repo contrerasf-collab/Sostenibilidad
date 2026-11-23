@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,7 +44,7 @@ section.bloque{padding:clamp(28px,4.5vw,48px) 0 0}
 .progreso{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:14px 22px;margin-bottom:20px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
 .progreso strong{color:var(--azul)}
 .barra{height:12px;background:var(--gris-claro);border-radius:999px;overflow:hidden;border:1px solid var(--linea)}
-.barra span{display:block;height:100%;width:33.33%;background:linear-gradient(90deg,var(--verde-prof),var(--verde),var(--menta));border-radius:999px}
+.barra span{display:block;height:100%;width:50%;background:linear-gradient(90deg,var(--verde-prof),var(--verde),var(--menta));border-radius:999px}
 .progreso small{color:var(--gris)}
 
 .rejilla{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -201,8 +200,8 @@ footer p{font-size:.95rem}
 
       <div class="progreso" role="group" aria-label="Progreso del proyecto">
         <strong>Progreso del proyecto</strong>
-        <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="2" aria-label="2 de 6 unidades disponibles"><span></span></div>
-        <small>2 de 6 unidades disponibles</small>
+        <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="6" aria-valuenow="3" aria-label="3 de 6 unidades disponibles"><span></span></div>
+        <small>3 de 6 unidades disponibles</small>
       </div>
 
       <div class="rejilla">
@@ -220,11 +219,11 @@ footer p{font-size:.95rem}
           <div class="pie-tarjeta"><span class="estado">Disponible</span><span class="accion">Entrar</span></div>
         </a>
 
-        <a class="tarjeta proximamente" href="unidades/ud3.html" aria-disabled="true" tabindex="-1">
+        <a class="tarjeta disponible" href="unidades/ud3.html">
           <div class="cab"><span class="emoji" aria-hidden="true">🎯</span><span class="ud">Unidad 3</span></div>
           <h3>ODS y desempeño profesional</h3>
           <div class="resultado"><b>Resultado</b>Selección de objetivos prioritarios</div>
-          <div class="pie-tarjeta"><span class="estado">Próximamente</span></div>
+          <div class="pie-tarjeta"><span class="estado">Disponible</span><span class="accion">Entrar</span></div>
         </a>
 
         <a class="tarjeta proximamente" href="unidades/ud4.html" aria-disabled="true" tabindex="-1">
