@@ -63,6 +63,25 @@ th{background:var(--bl)}
 .mx3 .mc{display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start}
 .mx3 .mc span{display:inline-block;color:#fff;border-radius:10px;padding:1px 7px;font-weight:700;font-size:.8rem}
 .tag{display:inline-block;background:var(--bl);color:var(--b);border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:600;margin-left:6px}
+.ic{width:1.1em;height:1.1em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dot{display:inline-block;width:.75em;height:.75em;border-radius:50%;margin-right:6px;vertical-align:-.05em}
+.lvl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.lvl>div{border:1px solid var(--l);border-left:6px solid var(--c);border-radius:10px;padding:8px 10px;background:#fff}
+.lvl b{display:block;color:var(--c);font-size:.9rem}
+.lvl p{margin:2px 0 0;font-size:.82rem;color:var(--m)}
+.gwbar{height:10px;background:var(--l);border-radius:9px;overflow:hidden;margin:12px 0 2px}
+.gwbar i{display:block;height:100%;background:var(--g);width:0;transition:.3s}
+.stamp{display:inline-block;border:2px solid;border-radius:6px;padding:2px 9px;font-weight:800;font-size:.75rem;letter-spacing:.08em;transform:rotate(-2deg);margin:8px 6px 4px 0;animation:pop .25s ease}
+.stamp.ok{color:var(--g);border-color:var(--g);background:#e6f6e9}
+.stamp.mid{color:#d9480f;border-color:#f59f00;background:#fff4e6}
+.stamp.bad{color:var(--r);border-color:var(--r);background:#fdeaea}
+.e4{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+.e4 span{font-size:.78rem;border:1px solid var(--l);border-radius:999px;padding:2px 8px;background:#fff}
+.e4 .yes{color:var(--g);border-color:var(--g);background:#e6f6e9}
+.e4 .no{color:var(--m);border-color:var(--l);background:#f7fafc}
+@keyframes pop{from{transform:scale(.8) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(-2deg);opacity:1}}
+@media(max-width:700px){.lvl{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.stamp{animation:none}}
 .doc h3{margin:.1em 0}.doc h4{color:var(--b);margin:14px 0 4px;border-bottom:1px solid var(--l)}
 .doc p{margin:4px 0;white-space:pre-wrap}.doc .sg{border-top:2px solid var(--b);margin-top:14px;padding-top:8px;font-style:italic}
 .nv{display:flex;justify-content:space-between;gap:8px;margin-top:22px}
@@ -88,10 +107,10 @@ th{background:var(--bl)}
   <select id="sel" onchange="go(+this.value)" aria-label="Ir a pantalla"></select>
   <div class="bar" aria-hidden="true"><i id="pg"></i></div>
   <span id="sv" class="m">Guardado ✓</span>
-  <button class="sm" onclick="exportTxt()">TXT</button>
-  <button class="sm" onclick="exportJson()">JSON</button>
-  <button class="sm" onclick="document.getElementById('fi').click()">Importar</button>
-  <button class="sm" onclick="resetAll()">Reiniciar</button>
+  <button class="sm" data-ic="save" onclick="exportTxt()">Exportar mi trabajo</button>
+  <button class="sm" data-ic="json" onclick="exportJson()">Exportar JSON</button>
+  <button class="sm" data-ic="import" onclick="document.getElementById('fi').click()">Importar trabajo</button>
+  <button class="sm" data-ic="reset" onclick="resetAll()">Reiniciar unidad</button>
 </header>
 <noscript><p style="padding:20px">Este cuaderno necesita JavaScript activado para guardar tu trabajo.</p></noscript>
 <div class="wrap">
@@ -103,6 +122,17 @@ th{background:var(--bl)}
 /* ============ DATOS ============ */
 const $=s=>document.querySelector(s);
 const e=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const IC={
+ save:'<path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/>',
+ json:'<path d="M9 4H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h2M15 4h2a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-2"/>',
+ import:'<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',
+ reset:'<path d="M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6"/>',
+ copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+ print:'<path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+ folder:'<path d="M3 6h6l2 2h10v11H3z"/>',
+ check:'<path d="M20 6 9 17l-5-5"/>'
+};
+function ic(n){return `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${IC[n]||''}</svg>`}
 const K='sasp_ud3_motorbalear';
 const SEC=['','Punto de partida','Criterios de credibilidad','Mapa de los 17 ODS','Observación y preselección','Retos → ODS','Riesgos y oportunidades','Matriz de materialidad','ODS prioritarios y exclusiones','Objetivos SMART','Acciones y alianzas','Compromiso personal y Mi Proyecto','Agenda y defensa'];
 const ODS=[
@@ -126,12 +156,12 @@ const ODS=[
 ];
 const P5=['Personas','Planeta','Prosperidad','Paz','Alianzas'];
 const GW=[
- {t:'«Somos un taller 100% sostenible.»',a:2,why:'Un absoluto sin datos no se puede medir ni verificar.'},
- {t:'«Hemos reducido un 12% el consumo eléctrico en 2025; lo acredita la factura y el contador.»',a:0,why:'Cifra, año y evidencia: se puede comprobar.'},
- {t:'«Usamos productos ecológicos.»',a:1,why:'Falta qué producto, cuánto y con qué certificación.'},
- {t:'«En 2026 hemos entregado el 100% de los aceites usados a gestor autorizado, con documento de identificación.»',a:0,why:'Cifra, plazo, gestor y documento: es verificable.'},
- {t:'«Cuidamos el planeta.»',a:2,why:'Eslogan sin compromiso, sin cifra y sin plazo.'},
- {t:'«Formaremos a 3 técnicos en alta tensión antes de diciembre de 2027; presupuesto aprobado.»',a:0,why:'Cifra, plazo y recurso: se puede auditar.'}
+ {t:'«Somos un taller 100% sostenible.»',a:2,e:[0,0,0,0],why:'Un absoluto sin datos no se puede medir ni verificar.'},
+ {t:'«Hemos reducido un 12% el consumo eléctrico en 2025; lo acredita la factura y el contador, y lo firma la dirección.»',a:0,e:[1,1,1,1],why:'Cifra, año, prueba y responsable: se puede auditar.'},
+ {t:'«Usamos productos ecológicos.»',a:1,e:[0,0,0,0],why:'Hay una intención concreta, pero falta qué producto, qué certificación y quién lo acredita.'},
+ {t:'«En 2026 hemos entregado el 100% de los aceites usados a gestor autorizado, con documento de identificación firmado por la jefatura de taller.»',a:0,e:[1,1,1,1],why:'Cifra, plazo, documento y responsable: es verificable.'},
+ {t:'«Cuidamos el planeta.»',a:2,e:[0,0,0,0],why:'Eslogan sin compromiso, sin cifra y sin plazo.'},
+ {t:'«Formaremos a 3 técnicos en alta tensión antes de diciembre de 2027; presupuesto aprobado por la dirección.»',a:0,e:[1,1,1,1],why:'Cifra, plazo, prueba y responsable: se puede auditar.'}
 ];
 const DEF_RETOS=['Residuos peligrosos','Contaminación y vertidos','Consumo energético','Electrificación y baterías','Falta de técnicos'];
 function sugFor(r){
@@ -201,21 +231,57 @@ function s1(){
   <div class="card"><b>La dirección pide:</b> «No me traigas los 17 ODS. Dime en qué cinco nos jugamos algo y cómo vas a demostrar que lo estamos cumpliendo.»</div>
   ${tx('name','Tu nombre y grupo','Nombre y apellidos · grupo')}
   ${ta('proj','El problema de tu proyecto (UD1)',2,'¿Qué problema elegiste en la UD1?')}
-  <div class="q"><b>¿Ya hiciste la UD2?</b><p class="m">Si exportaste tu diagnóstico, impórtalo: la agenda arrancará con tus prioridades.</p><button class="p" onclick="document.getElementById('fi').click()">📂 Importar JSON o TXT de UD2</button>${prio}</div>
+  <div class="q"><b>¿Ya hiciste la UD2?</b><p class="m">Si exportaste tu diagnóstico, impórtalo: la agenda arrancará con tus prioridades.</p><button class="p" onclick="document.getElementById('fi').click()">${ic('import')} Importar JSON o TXT de UD2</button>${prio}</div>
   <details class="c" open><summary>Contexto rápido: por qué 2027</summary><p>Un objetivo sin plazo es un deseo. La agenda fija el horizonte 2027 para que el taller pueda medir avances antes de que acabe el curso y defenderlos con datos.</p></details>`;
 }
 
 function s2(){
-  const labels=['Creíble','Incompleto','Greenwashing'];
-  return `<p>Un ODS no es un adorno: es un compromiso que se puede auditar. Clasifica estas afirmaciones de talleres reales o plausibles.</p>`+
-  GW.map((g,i)=>{
+  const done=GW.filter((g,i)=>S.a['gw'+i]!=null).length;
+  const pct=Math.round(done/GW.length*100);
+  const labels=['Verificable','A medias','Humo'];
+  const cards=GW.map((g,i)=>{
     const v=S.a['gw'+i];
-    const fb=v!=null?`<div class="fb">${Number(v)===g.a?'✅ ':'❌ '}${e(g.why)}</div>`:'';
-    return `<div class="q"><b>${i+1}. ${e(g.t)}</b><div class="opts">${labels.map((l,j)=>`<button type="button" class="o${Number(v)===j?' sel':''}${v!=null&&j===g.a?' ok':''}" onclick="gwSet(${i},${j})">${l}</button>`).join('')}</div>${fb}</div>`;
-  }).join('')+
-  `<div class="card"><h3>La regla de las 4 E</h3><p>Un compromiso creíble tiene <b>Exactitud</b> (una cifra), <b>Evidencia</b> (un documento), <b>Fecha</b> (un plazo) y <b>Encargado</b> (un responsable). Si falta una, no es sostenibilidad: es marketing.</p></div>`;
+    const ans=v!=null;
+    const cls=g.a===0?'ok':g.a===1?'mid':'bad';
+    const stamp=g.a===0?'VERIFICABLE':g.a===1?'A MEDIAS':'HUMO';
+    const ok=ans&&Number(v)===g.a;
+    const e4=ans?`<div class="e4">${['Cifra','Prueba','Fecha','Responsable'].map((n,j)=>`<span class="${g.e[j]?'yes':'no'}">${g.e[j]?'Sí':'No'} · ${n}</span>`).join('')}</div>`:'';
+    return `<div class="q"><b>${i+1}. ${e(g.t)}</b>
+      <div class="opts">${labels.map((l,j)=>`<button type="button" class="o${Number(v)===j?' sel':''}${ans&&j===g.a?' ok':''}" onclick="gwSet(${i},${j})">${l}</button>`).join('')}</div>
+      ${ans?`<div class="m">Respuesta correcta:</div><div class="stamp ${cls}">${stamp}</div>${e4}<div class="fb">${ok?'Correcto.':'No exactamente.'} ${e(g.why)}</div>`:''}
+    </div>`;
+  }).join('');
+  const last=done===GW.length?`<div class="q"><b>Reescribe la afirmación más grave</b>
+    <p class="m">Convierte el humo en un compromiso que se pueda auditar: cifra, plazo, prueba y responsable.</p>
+    ${sel('gwPick',GW.map((g,i)=>[i,'Afirmación '+(i+1)]),'¿Cuál reescribes?')}
+    ${ta('gwFix','Tu versión verificable',2,'Ej.: Reducir un 15% el consumo en 2027, con factura y responsable de taller.')}
+    <button class="p" onclick="checkGwFix()">Comprobar mi versión</button>
+    ${S.a.gwFixMsg?`<div class="fb">${e(S.a.gwFixMsg)}</div>`:''}</div>`:
+    `<p class="m">Responde las seis afirmaciones para desbloquear la reescritura.</p>`;
+  return `<p>Un ODS no es un adorno: es un compromiso que se puede auditar. Este es el <b>detector de humo</b>: clasifica cada afirmación y mira qué le falta.</p>
+  <div class="lvl">
+    <div style="--c:#2b8a3e"><b><span class="dot" style="background:#2b8a3e"></span>Verificable</b><p>Cifra, fecha, prueba y responsable. Se puede auditar.</p></div>
+    <div style="--c:#e8590c"><b><span class="dot" style="background:#e8590c"></span>A medias</b><p>Hay una intención concreta, pero falta algún dato o prueba.</p></div>
+    <div style="--c:#c92a2a"><b><span class="dot" style="background:#c92a2a"></span>Humo</b><p>Afirmación absoluta o vacía: no se puede comprobar tal como está.</p></div>
+  </div>
+  <div class="gwbar"><i style="width:${pct}%"></i></div>
+  <p class="m">${done}/${GW.length} revisadas</p>
+  ${cards}${last}`;
 }
 function gwSet(i,v){S.a['gw'+i]=v;render(1)}
+function checkGwFix(){
+  const t=String(val('gwFix')).trim();
+  const miss=[];
+  if(val('gwPick')==='')miss.push('elige una afirmación');
+  if(t.length<25)miss.push('una frase más completa');
+  if(!/\d/.test(t))miss.push('una cifra');
+  if(!/(19|20)\d{2}/.test(t))miss.push('un plazo con año');
+  if(!/(factura|contador|documento|registro|presupuesto|foto|certificad|medici[oó]n)/i.test(t))miss.push('una prueba');
+  if(!/(responsable|jefatura|direcci[oó]n|encargad|gerente)/i.test(t))miss.push('un responsable');
+  S.a.gwFixOk=miss.length?0:1;
+  S.a.gwFixMsg=miss.length?'Faltan: '+miss.join(', ')+'.':'Bien: tu versión se puede auditar.';
+  render(1);
+}
 
 function s3(){
   const pf=S.a.pf||'';
@@ -258,7 +324,7 @@ function checkMap(){
   let n=0;
   retos.forEach((r,i)=>{if(val('mapOds'+i))n++});
   S.a.mapCheck=1;
-  S.a.mapMsg=n===5?`✅ ${n}/5 retos con ODS. Revisa que la meta elegida exista de verdad (por ejemplo, 12.5 o 7.3).`:`Hay ${5-n} retos sin ODS. Completa los cinco antes de seguir.`;
+  S.a.mapMsg=n===5?`Correcto: ${n}/5 retos con ODS. Revisa que la meta elegida exista de verdad (por ejemplo, 12.5 o 7.3).`:`Hay ${5-n} retos sin ODS. Completa los cinco antes de seguir.`;
   render(1);
 }
 
@@ -349,7 +415,7 @@ function checkSmart(){
       if(!val('own_'+n))bad.push('ODS '+n+': falta el responsable');
     }
   });
-  S.a.smartMsg=bad.length?bad.slice(0,7).join(' · '):'✅ Los cinco objetivos tienen los campos mínimos.';
+  S.a.smartMsg=bad.length?bad.slice(0,7).join(' · '):'Bien: los cinco objetivos tienen los campos mínimos.';
   render(1);
 }
 
@@ -380,7 +446,7 @@ function s12(){
   return `<p class="m">La entrega se hace en el Google Forms. El JSON es la pieza que se guardará para la auditoría final de UD6.</p>
   <div class="doc">${doc()}</div>
   <div class="noprint">
-    <p><button class="p" onclick="copyForms()">📋 Copiar para el Google Forms</button> <button onclick="beforePrint()">🖨 Imprimir</button> <button onclick="exportTxt()">💾 TXT</button> <button onclick="exportJson()">🧩 JSON</button></p>
+    <p><button class="p" onclick="copyForms()">${ic('copy')} Copiar para el Google Forms</button> <button onclick="beforePrint()">${ic('print')} Imprimir</button> <button onclick="exportTxt()">${ic('save')} Exportar TXT</button> <button onclick="exportJson()">${ic('json')} Exportar JSON</button></p>
     <p class="m">Exporta al acabar: el JSON es la pieza que se unificará en la auditoría final de UD6.</p>
   </div>
   <h3>Defensa de 2 minutos</h3>
@@ -414,6 +480,7 @@ function EVID(){
   if(arr('impPrio').length)add(1,'Prioridades UD2',arr('impPrio').join(' · '));
   const gwOk=GW.map((g,i)=>A['gw'+i]!=null&&Number(A['gw'+i])===g.a).filter(Boolean).length;
   add(2,'Afirmaciones correctas',gwOk+' de '+GW.length);
+  if(val('gwFix'))add(2,'Versión verificable',val('gwFix'));
   add(3,'ODS explorados',arr('seen').length?arr('seen').map(n=>'ODS '+n).join(', '):'');
   [1,2,3].forEach(i=>{if(val('obs'+i))add(4,'Práctica '+i,val('obs'+i)+(val('obsOds'+i)?' → ODS '+val('obsOds'+i):''))});
   add(4,'ODS preseleccionados',arr('short').length?arr('short').join(', '):'');
@@ -437,7 +504,7 @@ function EVID(){
 }
 function updEv(){
   const items=EVID();
-  const nav=`<b>📁 Evidencias recopiladas</b><p class="m">${items.length} registros · ${Object.keys(S.v).length}/${SCR.length} pantallas visitadas</p>`;
+  const nav=`<b>${ic('folder')} Evidencias recopiladas</b><p class="m">${items.length} registros · ${Object.keys(S.v).length}/${SCR.length} pantallas visitadas</p>`;
   const body=SEC.slice(1).map((s,i)=>{
     const it=items.filter(x=>x.s===i+1);
     if(!it.length)return '';
@@ -459,7 +526,7 @@ function doc(){
     const it=EVID().filter(x=>x.s===i+1);
     if(it.length)h+=`<h4>${i+1}. ${e(s)}</h4>`+it.map(x=>`<p><b>${e(x.l)}:</b> ${e(x.v)}</p>`).join('');
   });
-  h+=`<p class="sg">✔ ${A.firma?'Firmado':'Pendiente de firma'} por ${e(A.name||'(sin nombre)')}${A.firma?' el '+e(A.firma):''}. «Los objetivos de esta agenda son medibles y verificables; no incluyo afirmaciones sin evidencia.»</p>`;
+  h+=`<p class="sg">${A.firma?'Firmado':'Pendiente de firma'} por ${e(A.name||'(sin nombre)')}${A.firma?' el '+e(A.firma):''}. «Los objetivos de esta agenda son medibles y verificables; no incluyo afirmaciones sin evidencia.»</p>`;
   return h;
 }
 function docText(){
@@ -480,6 +547,7 @@ function formsText(){
   const L=[docText()];
   L.push('Mi Proyecto: '+(val('proj')||'—')+(val('projOds')?' → ODS '+val('projOds'):''));
   [1,2,3].forEach(i=>{if(val('out'+i))L.push('ODS fuera: '+val('out'+i))});
+  if(val('gwFix'))L.push('Afirmación reescrita: '+val('gwFix'));
   const first=arr('top')[0];
   if(first&&val('evi_'+first))L.push('Evidencia principal (ODS '+first+'): '+val('evi_'+first));
   L.push('Compromiso personal: '+(val('pc1')||'—')+' / '+(val('pc2')||'—'));
@@ -494,7 +562,7 @@ function buildJson(){
     metaCuantificada:val('mt_'+n),plazo:val('pl_'+n),indicador:val('ind_'+n),responsable:val('own_'+n),
     accion:val('acc_'+n),aliado:val('ali_'+n),evidencia:val('evi_'+n),asg:val('asg_'+n)
   }));
-  return {proyecto:'MotorBalear S.L.',modulo:'SASP',unidad:'UD3',version:'1.0',fecha:new Date().toISOString(),
+  return {proyecto:'MotorBalear S.L.',modulo:'SASP',unidad:'UD3',version:'1.1',fecha:new Date().toISOString(),
     alumno:A.name||'',diagnostico:A.impDiag||{},
     proyectoPersonal:{problema:val('proj'),odsVinculados:val('projOds')?[String(val('projOds'))]:[],justificacion:val('projWhy')},
     agenda:agenda,compromisoPersonal:[val('pc1'),val('pc2')].filter(Boolean),
@@ -593,7 +661,8 @@ function onEdit(t){
 $('#fi').onchange=onFile;
 
 /* ============ INICIO ============ */
-$('#tt').innerHTML='UD3 · ODS y desempeño profesional <span class="m">v1.0</span>';
+$('#tt').innerHTML='UD3 · ODS y desempeño profesional <span class="m">v1.1</span>';
+if(document.querySelectorAll){document.querySelectorAll('[data-ic]').forEach(b=>{b.innerHTML=ic(b.dataset.ic)+' '+b.innerHTML});}
 if(S.p==null||S.p<0||S.p>=SCR.length)S.p=0;
 norm();
 render(1);
