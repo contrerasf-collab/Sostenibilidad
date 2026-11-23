@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UD3 · ODS y desempeño profesional · MotorBalear S.L.</title>
+<style>
+:root{--b:#0b5cad;--bl:#e7f0fb;--g:#2b8a3e;--r:#c92a2a;--o:#e8590c;--bg:#f3f5f8;--t:#1d2733;--m:#5c6b7a;--l:#d9e0e8}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.55 system-ui,"Segoe UI",sans-serif;background:var(--bg);color:var(--t)}
+header{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--l);padding:8px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+header b{color:var(--b)}.m{color:var(--m);font-size:.85rem}.k{color:var(--m);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+#sv{font-size:.8rem;color:var(--g);min-width:76px}
+select,button,input,textarea{font:inherit}
+button,select{font-size:.86rem;border:1px solid var(--b);background:#fff;color:var(--b);border-radius:8px;padding:8px 11px;cursor:pointer;min-height:40px}
+button:hover{background:var(--bl)}button.p{background:var(--b);color:#fff}button.sm{padding:5px 9px;min-height:34px}
+.bar{flex:1;min-width:80px;height:8px;background:var(--l);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g);width:0;transition:.3s}
+.wrap{display:grid;grid-template-columns:1fr 340px;gap:16px;max-width:1300px;margin:auto;padding:16px}
+main,aside{background:#fff;border:1px solid var(--l);border-radius:14px;padding:20px}
+aside{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;font-size:.88rem}
+aside h4{margin:14px 0 4px;color:var(--b);border-bottom:1px solid var(--l);font-size:.9rem}
+aside ul{margin:4px 0 8px 18px;padding:0}
+h2{margin:.2em 0 .6em}h3{margin:1em 0 .4em}
+.hero{background:linear-gradient(125deg,#0b3d6e,#0b5cad 55%,#2b8a3e);color:#fff;padding:26px;border-radius:16px;margin-bottom:16px}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 12px;font-size:.8rem;margin-bottom:10px}
+.hero h2{margin:0 0 6px;font-size:1.9rem}.hero p{margin:0;color:#e6f2fb}
+.enc{display:grid;grid-template-columns:1fr 1fr;gap:8px;border:2px solid var(--b);border-radius:12px;padding:12px;margin:12px 0;background:#f8fbff}
+.enc .et{grid-column:1/-1;font-weight:700;color:var(--b);letter-spacing:.05em;font-size:.78rem}
+.enc b{display:block;color:var(--m);font-size:.72rem;text-transform:uppercase}
+.q{background:var(--bl);border-radius:12px;padding:12px 14px;margin:14px 0}
+.card{border:1px solid var(--l);border-radius:12px;padding:12px 14px;margin:12px 0;background:#fcfdff}
+label.l{display:block;font-weight:600;margin:12px 0 4px}
+textarea,input[type=text],input[type=date]{width:100%;font:inherit;padding:9px;border:1px solid var(--l);border-radius:8px;background:#fff}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--b)}
+.row{display:grid;grid-template-columns:1fr 170px;gap:8px;align-items:end;margin:8px 0}
+.row3{display:grid;grid-template-columns:1fr 170px 120px;gap:8px;align-items:end;margin:8px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.ch{border-radius:16px;padding:6px 11px;min-height:34px;font-size:.85rem;border:1px solid var(--m);background:#fff;color:var(--t)}
+.ch.on{background:var(--b);border-color:var(--b);color:#fff}
+.opts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.o{border:1px solid var(--l);background:#fff;border-radius:8px;padding:6px 11px;min-height:36px}
+.o.sel{outline:2px solid var(--o)}
+.o.ok{background:#e6f6e9;border-color:var(--g)}
+.fb{margin-top:8px;font-size:.9rem;background:#fff;border-left:4px solid var(--b);padding:8px 10px;border-radius:6px}
+.aud{border-left:5px solid var(--o);background:#fff4e6;padding:8px 12px;border-radius:8px;margin:10px 0}
+.aud span{font-weight:700;color:#d9480f;font-size:.76rem;letter-spacing:.05em}
+details{border:1px solid var(--l);border-radius:10px;padding:8px 12px;margin:10px 0;background:#fcfdff}
+summary{cursor:pointer;font-weight:600;color:var(--b)}
+details p{margin:6px 0 2px}
+table{border-collapse:collapse;width:100%;margin:10px 0}
+td,th{border:1px solid var(--l);padding:6px 8px;text-align:left;vertical-align:top;font-size:.9rem}
+th{background:var(--bl)}
+.odsg{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:8px;margin:10px 0}
+.ods{border:1px solid var(--l);border-top:6px solid var(--c);border-radius:10px;padding:8px;background:#fff;text-align:left;color:var(--t);min-height:84px}
+.ods b{display:block;color:var(--c);font-size:1.1rem}
+.ods span{display:block;font-size:.8rem;line-height:1.25}
+.det{border:1px solid var(--c);border-left:6px solid var(--c);border-radius:10px;padding:10px 12px;margin:10px 0;background:#fff}
+.pf{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.pf button{padding:5px 10px;min-height:34px}.pf button.on{background:var(--b);color:#fff}
+.mx3{display:grid;grid-template-columns:110px repeat(3,1fr);gap:4px;margin:10px 0}
+.mx3>div{min-height:64px;border-radius:6px;padding:4px;background:#f7fafc;border:1px solid #edf1f4}
+.mx3 .mh{background:none;border:0;min-height:0;color:var(--m);font-weight:600;display:flex;align-items:center;font-size:.8rem}
+.mx3 .mc{display:flex;flex-wrap:wrap;gap:3px;align-content:flex-start}
+.mx3 .mc span{display:inline-block;color:#fff;border-radius:10px;padding:1px 7px;font-weight:700;font-size:.8rem}
+.tag{display:inline-block;background:var(--bl);color:var(--b);border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:600;margin-left:6px}
+.doc h3{margin:.1em 0}.doc h4{color:var(--b);margin:14px 0 4px;border-bottom:1px solid var(--l)}
+.doc p{margin:4px 0;white-space:pre-wrap}.doc .sg{border-top:2px solid var(--b);margin-top:14px;padding-top:8px;font-style:italic}
+.nv{display:flex;justify-content:space-between;gap:8px;margin-top:22px}
+.ck{display:flex;gap:8px;align-items:center;margin:10px 0}
+.ck input{width:18px;height:18px}
+.noprint{display:block}
+@supports not (display:grid){.wrap{display:block}}
+@media(max-width:1000px){.wrap{grid-template-columns:1fr}aside{position:static;max-height:none}.row,.row3{grid-template-columns:1fr}}
+@media(max-width:600px){.enc{grid-template-columns:1fr}header b{width:100%}}
+@media print{
+ header,aside,.nv,.noprint{display:none!important}
+ .wrap{display:block;padding:0;max-width:none}
+ main{border:0;padding:0}
+ body{background:#fff;font-size:12pt}
+ .doc h3{font-size:16pt}table{font-size:9pt}
+}
+@media(prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <b id="tt">UD3 · ODS y desempeño profesional</b>
+  <select id="sel" onchange="go(+this.value)" aria-label="Ir a pantalla"></select>
+  <div class="bar" aria-hidden="true"><i id="pg"></i></div>
+  <span id="sv" class="m">Guardado ✓</span>
+  <button class="sm" onclick="exportTxt()">TXT</button>
+  <button class="sm" onclick="exportJson()">JSON</button>
+  <button class="sm" onclick="document.getElementById('fi').click()">Importar</button>
+  <button class="sm" onclick="resetAll()">Reiniciar</button>
+</header>
+<noscript><p style="padding:20px">Este cuaderno necesita JavaScript activado para guardar tu trabajo.</p></noscript>
+<div class="wrap">
+  <main id="m"></main>
+  <aside id="ev"></aside>
+</div>
+<input type="file" id="fi" accept=".txt,.json" hidden>
+<script>
+/* ============ DATOS ============ */
+const $=s=>document.querySelector(s);
+const e=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const K='sasp_ud3_motorbalear';
+const SEC=['','Punto de partida','Criterios de credibilidad','Mapa de los 17 ODS','Observación y preselección','Retos → ODS','Riesgos y oportunidades','Matriz de materialidad','ODS prioritarios y exclusiones','Objetivos SMART','Acciones y alianzas','Compromiso personal y Mi Proyecto','Agenda y defensa'];
+const ODS=[
+ {n:1,name:'Fin de la pobreza',p:'Personas',c:'#e5243b',ex:'Empleo local, contratación y acceso al trabajo.'},
+ {n:2,name:'Hambre cero',p:'Personas',c:'#dda63a',ex:'Poco material en un taller; se relaciona con el consumo responsable de la cadena.'},
+ {n:3,name:'Salud y bienestar',p:'Personas',c:'#4c9f38',ex:'EPI, ergonomía y exposición a productos químicos.'},
+ {n:4,name:'Educación de calidad',p:'Personas',c:'#c5192d',ex:'Formación técnica, FP dual y relevo generacional.'},
+ {n:5,name:'Igualdad de género',p:'Personas',c:'#ff3a21',ex:'Mujeres en el sector y EPI adaptado a distintas tallas.'},
+ {n:6,name:'Agua limpia y saneamiento',p:'Planeta',c:'#26bde2',ex:'Lavado de vehículos, vertidos y separadores de hidrocarburos.'},
+ {n:7,name:'Energía asequible',p:'Prosperidad',c:'#fcc30b',ex:'LED, fotovoltaica, recarga y eficiencia del compresor.'},
+ {n:8,name:'Trabajo decente',p:'Prosperidad',c:'#a21942',ex:'Empleo digno, seguridad y condiciones de trabajo.'},
+ {n:9,name:'Industria e innovación',p:'Prosperidad',c:'#fd6925',ex:'Diagnosis, digitalización y formación en electromovilidad.'},
+ {n:10,name:'Reducción de desigualdades',p:'Prosperidad',c:'#dd1367',ex:'Acceso a la formación y barreras económicas o territoriales.'},
+ {n:11,name:'Ciudades sostenibles',p:'Prosperidad',c:'#fd9d24',ex:'Movilidad, ruido y relación del taller con el barrio.'},
+ {n:12,name:'Producción y consumo responsables',p:'Planeta',c:'#bf8b2e',ex:'Residuos, recambios y economía circular.'},
+ {n:13,name:'Acción por el clima',p:'Planeta',c:'#3f7e44',ex:'Emisiones y consumo energético del taller y de los vehículos.'},
+ {n:14,name:'Vida submarina',p:'Planeta',c:'#0a97d9',ex:'Vertidos y microplásticos procedentes de neumáticos.'},
+ {n:15,name:'Vida de ecosistemas terrestres',p:'Planeta',c:'#56c02b',ex:'Suelo, residuos y extracción de materiales.'},
+ {n:16,name:'Paz, justicia e instituciones sólidas',p:'Paz',c:'#00689d',ex:'Transparencia, cumplimiento normativo y anticorrupción.'},
+ {n:17,name:'Alianzas para lograr los objetivos',p:'Alianzas',c:'#19486a',ex:'Alianzas con FP, gestores de residuos y administración.'}
+];
+const P5=['Personas','Planeta','Prosperidad','Paz','Alianzas'];
+const GW=[
+ {t:'«Somos un taller 100% sostenible.»',a:2,why:'Un absoluto sin datos no se puede medir ni verificar.'},
+ {t:'«Hemos reducido un 12% el consumo eléctrico en 2025; lo acredita la factura y el contador.»',a:0,why:'Cifra, año y evidencia: se puede comprobar.'},
+ {t:'«Usamos productos ecológicos.»',a:1,why:'Falta qué producto, cuánto y con qué certificación.'},
+ {t:'«En 2026 hemos entregado el 100% de los aceites usados a gestor autorizado, con documento de identificación.»',a:0,why:'Cifra, plazo, gestor y documento: es verificable.'},
+ {t:'«Cuidamos el planeta.»',a:2,why:'Eslogan sin compromiso, sin cifra y sin plazo.'},
+ {t:'«Formaremos a 3 técnicos en alta tensión antes de diciembre de 2027; presupuesto aprobado.»',a:0,why:'Cifra, plazo y recurso: se puede auditar.'}
+];
+const DEF_RETOS=['Residuos peligrosos','Contaminación y vertidos','Consumo energético','Electrificación y baterías','Falta de técnicos'];
+function sugFor(r){
+  const s=String(r).toLowerCase();
+  if(s.indexOf('residuo')>=0)return ['12','12.5'];
+  if(s.indexOf('contamina')>=0||s.indexOf('vertid')>=0)return ['6','6.3'];
+  if(s.indexOf('energ')>=0||s.indexOf('consumo')>=0)return ['7','7.3'];
+  if(s.indexOf('electrific')>=0||s.indexOf('bater')>=0)return ['9','9.4'];
+  if(s.indexOf('técnic')>=0||s.indexOf('tecnic')>=0||s.indexOf('personal')>=0||s.indexOf('relevo')>=0)return ['4','4.4'];
+  if(s.indexOf('segur')>=0||s.indexOf('epi')>=0)return ['8','8.8'];
+  if(s.indexOf('igualdad')>=0||s.indexOf('mujer')>=0)return ['5','5.5'];
+  if(s.indexOf('agua')>=0)return ['6','6.4'];
+  if(s.indexOf('clima')>=0||s.indexOf('emision')>=0)return ['13','13.2'];
+  return ['12','12.5'];
+}
+const STK=['Plantilla','Clientes','Vecindario','Administración','Gestores de residuos','Centros de FP','Proveedores','Dirección'];
+const ALI=['Gestor autorizado','Centro de FP','Administración','Cliente o aseguradora','Proveedor','Asociación sectorial','Ninguno'];
+const ASG=['A · Ambiental','S · Social','G · Gobernanza'];
+
+/* ============ ESTADO ============ */
+let S={a:{},p:0,v:{}};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem(K)||'{}'))}catch(x){}
+if(!S.a||typeof S.a!=='object')S.a={};
+['short','top','seen'].forEach(k=>{if(!Array.isArray(S.a[k]))S.a[k]=[];S.a[k]=S.a[k].map(String)});
+if(!Array.isArray(S.a.retos))S.a.retos=[];
+if(!Array.isArray(S.a.impPrio))S.a.impPrio=[];
+
+function save(){try{localStorage.setItem(K,JSON.stringify(S));$('#sv').textContent='Guardado ✓'}catch(x){$('#sv').textContent='⚠ Exporta tu trabajo'}}
+function val(k){return S.a[k]==null?'':S.a[k]}
+function arr(k){return Array.isArray(S.a[k])?S.a[k]:[]}
+function toast(msg){const s=$('#sv');s.textContent=msg;setTimeout(()=>{s.textContent='Guardado ✓'},2200)}
+
+/* ============ COMPONENTES ============ */
+function tx(k,l,ph=''){return `<label class="l">${e(l)}</label><input type="text" data-k="${k}" value="${e(val(k))}" placeholder="${e(ph)}">`}
+function ta(k,l,rows=3,ph=''){return `<label class="l">${e(l)}</label><textarea data-k="${k}" rows="${rows}" placeholder="${e(ph)}">${e(val(k))}</textarea>`}
+function sel(k,opts,l,ph='—'){
+  const cur=String(val(k));
+  const lab=l?`<label class="l">${e(l)}</label>`:'';
+  return lab+`<select data-k="${k}"><option value="">${e(ph)}</option>`+
+    opts.map(o=>{const v=Array.isArray(o)?o[0]:o,lab2=Array.isArray(o)?o[1]:o;
+      return `<option value="${e(v)}"${cur===String(v)?' selected':''}>${e(lab2)}</option>`}).join('')+'</select>';
+}
+function chipsArr(k,items,max=0){
+  const cur=arr(k).map(String);
+  return `<div class="chips">`+items.map(it=>{
+    const v=String(it.v),on=cur.includes(v);
+    return `<button type="button" class="ch${on?' on':''}" title="${e(it.t||it.l)}" onclick="tgArr('${k}','${v}',${max})">${e(it.l)}</button>`;
+  }).join('')+`</div>`;
+}
+function tgArr(k,v,max){
+  let a=arr(k).map(String).slice();
+  const i=a.indexOf(String(v));
+  if(i>=0)a.splice(i,1);
+  else{if(max&&a.length>=max){toast('Máximo '+max);return}a.push(String(v))}
+  S.a[k]=a;render(1);
+}
+function chk(k,l){return `<label class="ck"><input type="checkbox" data-k="${k}"${val(k)?' checked':''}> <span>${e(l)}</span></label>`}
+
+/* ============ PANTALLAS ============ */
+function s1(){
+  const prio=arr('impPrio').length?`<p><b>Prioridades importadas de UD2:</b></p><ul>${arr('impPrio').map(x=>`<li>${e(x)}</li>`).join('')}</ul>`:'';
+  return `<div class="hero"><div class="tag">UD3 · Sesión 1 · El encargo</div><h2>De un diagnóstico a cinco compromisos</h2><p>MotorBalear ya sabe qué le pasa. Ahora necesita una agenda que pueda defender ante un cliente, un banco o una inspección.</p></div>
+  <div class="enc"><div class="et">ENCARGO · AGENDA ODS 2027</div>
+    <div><b>Cliente</b>MotorBalear S.L.</div><div><b>Equipo</b>Consultoría de sostenibilidad</div>
+    <div><b>Punto de partida</b>Diagnóstico de UD2</div><div><b>Entregable</b>Agenda ODS 2027</div>
+    <div><b>Objetivo</b>Elegir cinco ODS y convertirlos en objetivos medibles</div></div>
+  <div class="card"><b>La dirección pide:</b> «No me traigas los 17 ODS. Dime en qué cinco nos jugamos algo y cómo vas a demostrar que lo estamos cumpliendo.»</div>
+  ${tx('name','Tu nombre y grupo','Nombre y apellidos · grupo')}
+  ${ta('proj','El problema de tu proyecto (UD1)',2,'¿Qué problema elegiste en la UD1?')}
+  <div class="q"><b>¿Ya hiciste la UD2?</b><p class="m">Si exportaste tu diagnóstico, impórtalo: la agenda arrancará con tus prioridades.</p><button class="p" onclick="document.getElementById('fi').click()">📂 Importar JSON o TXT de UD2</button>${prio}</div>
+  <details class="c" open><summary>Contexto rápido: por qué 2027</summary><p>Un objetivo sin plazo es un deseo. La agenda fija el horizonte 2027 para que el taller pueda medir avances antes de que acabe el curso y defenderlos con datos.</p></details>`;
+}
+
+function s2(){
+  const labels=['Creíble','Incompleto','Greenwashing'];
+  return `<p>Un ODS no es un adorno: es un compromiso que se puede auditar. Clasifica estas afirmaciones de talleres reales o plausibles.</p>`+
+  GW.map((g,i)=>{
+    const v=S.a['gw'+i];
+    const fb=v!=null?`<div class="fb">${Number(v)===g.a?'✅ ':'❌ '}${e(g.why)}</div>`:'';
+    return `<div class="q"><b>${i+1}. ${e(g.t)}</b><div class="opts">${labels.map((l,j)=>`<button type="button" class="o${Number(v)===j?' sel':''}${v!=null&&j===g.a?' ok':''}" onclick="gwSet(${i},${j})">${l}</button>`).join('')}</div>${fb}</div>`;
+  }).join('')+
+  `<div class="card"><h3>La regla de las 4 E</h3><p>Un compromiso creíble tiene <b>Exactitud</b> (una cifra), <b>Evidencia</b> (un documento), <b>Fecha</b> (un plazo) y <b>Encargado</b> (un responsable). Si falta una, no es sostenibilidad: es marketing.</p></div>`;
+}
+function gwSet(i,v){S.a['gw'+i]=v;render(1)}
+
+function s3(){
+  const pf=S.a.pf||'';
+  const list=ODS.filter(o=>!pf||o.p===pf);
+  const grid=list.map(o=>`<button type="button" class="ods" style="--c:${o.c}" onclick="openOds(${o.n})"><b>${o.n}</b><span>${e(o.name)}</span></button>`).join('');
+  const o=ODS.find(x=>x.n==S.a.odsOpen);
+  const det=o?`<div class="det" style="--c:${o.c}"><b>ODS ${o.n} · ${e(o.name)}</b><p class="m">${e(o.p)}</p><p>${e(o.ex)}</p></div>`:'<p class="m">Pulsa un ODS para ver su relación con el taller.</p>';
+  return `<p>Los 17 ODS se agrupan en las <b>5P</b>. No hace falta memorizarlos: necesitas saber cuáles puede tocar un taller.</p>
+  <div class="pf">${['','Personas','Planeta','Prosperidad','Paz','Alianzas'].map(p=>`<button type="button" class="${pf===p?'on':''}" onclick="setPF('${p}')">${p||'Todos'}</button>`).join('')}</div>
+  <div class="odsg">${grid}</div>${det}
+  <p class="m">Has explorado ${arr('seen').length}/17 ODS.</p>`;
+}
+function setPF(p){S.a.pf=p;render(1)}
+function openOds(n){S.a.odsOpen=n;if(!arr('seen').includes(String(n)))S.a.seen=arr('seen').concat(String(n));render(1)}
+
+function s4(){
+  const obs=[1,2,3].map(i=>`<div class="row"><input type="text" data-k="obs${i}" value="${e(val('obs'+i))}" placeholder="Práctica observada: qué se hace y qué residuo o consumo implica"><select data-k="obsOds${i}"><option value="">ODS</option>${ODS.map(o=>`<option value="${o.n}"${String(val('obsOds'+i))===String(o.n)?' selected':''}>${o.n} · ${e(o.name)}</option>`).join('')}</select></div>`).join('');
+  return `<p>Antes de elegir ODS, mira el taller. Recupera las tres prácticas que registraste como tarea previa (o hazlo ahora en dos minutos).</p>
+  <div class="q"><b>Observación de campo</b><p class="m">Una práctica puede ser buena o mejorable; lo importante es qué ODS toca.</p>${obs}</div>
+  <div class="q"><b>Preselección: elige entre 6 y 8 ODS</b><p class="m">Son los que un taller puede afectar de verdad. Llevas ${arr('short').length}/8.</p>${chipsArr('short',ODS.map(o=>({v:o.n,l:o.n,t:o.n+' · '+o.name})),8)}
+  <p class="m">${arr('short').length?arr('short').map(n=>{const o=ODS.find(x=>x.n==n);return o?o.n+' · '+o.name:''}).join(' · '):'Pasa el cursor o consulta la pantalla 3 si dudas del número.'}</p></div>
+  ${ta('shortWhy','Justifica los 3 ODS que más te importan',3,'Por qué esos y no otros...')}`;
+}
+
+function s5(){
+  const retos=(arr('retos').length>=5?arr('retos'):DEF_RETOS).slice(0,5);
+  return `<p>Cada reto del diagnóstico de UD2 tiene uno o dos ODS que lo explican. No hay una única respuesta: se evalúa la coherencia.</p>`+
+  retos.map((r,i)=>{
+    const cur=String(val('mapOds'+i));
+    const sg=sugFor(r);
+    return `<div class="q"><b>${i+1}. ${e(r)}</b><div class="row">
+      <select data-k="mapOds${i}"><option value="">ODS</option>${ODS.map(o=>`<option value="${o.n}"${cur===String(o.n)?' selected':''}>${o.n} · ${e(o.name)}</option>`).join('')}</select>
+      <input type="text" data-k="mapMeta${i}" value="${e(val('mapMeta'+i))}" placeholder="Meta (p. ej. 12.5)"></div>
+      ${S.a.mapCheck?`<div class="fb">Sugerencia orientativa: ODS ${sg[0]} · meta ${sg[1]}</div>`:''}</div>`;
+  }).join('')+
+  `<button class="p" onclick="checkMap()">Comprobar coherencia</button>${S.a.mapMsg?`<div class="fb">${e(S.a.mapMsg)}</div>`:''}`;
+}
+function checkMap(){
+  const retos=(arr('retos').length>=5?arr('retos'):DEF_RETOS).slice(0,5);
+  let n=0;
+  retos.forEach((r,i)=>{if(val('mapOds'+i))n++});
+  S.a.mapCheck=1;
+  S.a.mapMsg=n===5?`✅ ${n}/5 retos con ODS. Revisa que la meta elegida exista de verdad (por ejemplo, 12.5 o 7.3).`:`Hay ${5-n} retos sin ODS. Completa los cinco antes de seguir.`;
+  render(1);
+}
+
+function s6(){
+  const base=(arr('top').length>=3?arr('top'):arr('short').slice(0,3));
+  if(base.length<3)return `<p>Primero necesitas al menos tres ODS preseleccionados en la pantalla 4.</p>`;
+  return `<p>Si no actuamos, ¿qué pasa? Si actuamos, ¿qué ganamos? Y sobre todo: ¿a quién le importa?</p>`+
+  base.map(n=>{
+    const o=ODS.find(x=>x.n==n)||{name:'ODS '+n};
+    return `<div class="card"><b>${n} · ${e(o.name)}</b>
+      ${ta('risk_'+n,'Riesgo si no actuamos',2,'Sanción, coste, salud, imagen...')}
+      ${ta('opp_'+n,'Oportunidad si actuamos',2,'Ahorro, contrato, reputación...')}
+      ${sel('stk_'+n,STK,'Stakeholder más afectado')}</div>`;
+  }).join('');
+}
+
+function s7(){
+  const short=arr('short');
+  if(short.length<4)return `<p>Necesitas al menos cuatro ODS preseleccionados. Vuelve a la pantalla 4 y elige entre 6 y 8.</p>`;
+  const rows=short.map(n=>{
+    const o=ODS.find(x=>x.n==n)||{name:'ODS '+n};
+    return `<tr><td>${n} · ${e(o.name)}</td><td>${sel('mi_'+n,[[3,'Alto'],[2,'Medio'],[1,'Bajo']],'')}</td><td>${sel('me_'+n,[[3,'Alta'],[2,'Media'],[1,'Baja']],'')}</td></tr>`;
+  }).join('');
+  let grid=`<div class="mx3"><div class="mh"></div>${[1,2,3].map(j=>`<div class="mh">Exp. ${['Baja','Media','Alta'][j-1]}</div>`).join('')}`;
+  for(let i=3;i>=1;i--){
+    grid+=`<div class="mh">Impacto ${['Bajo','Medio','Alto'][i-1]}</div>`;
+    for(let j=1;j<=3;j++){
+      const here=short.filter(n=>Number(val('mi_'+n))===i&&Number(val('me_'+n))===j);
+      grid+=`<div class="mc">${here.map(n=>`<span style="background:${(ODS.find(o=>o.n==n)||{}).c||'#0b5cad'}">${n}</span>`).join('')}</div>`;
+    }
+  }
+  grid+='</div>';
+  const top=arr('top');
+  return `<p>La matriz no decide por ti: ordena. Coloca cada ODS en impacto en el negocio y expectativa de los stakeholders. El cuadrante alto-alto es la prioridad.</p>
+  <table><tr><th>ODS</th><th>Impacto en el negocio</th><th>Expectativa de stakeholders</th></tr>${rows}</table>
+  ${grid}
+  <p><b>Prioritarios:</b> ${top.length?top.join(', '):'sin elegir'}</p>
+  <div class="chips">${short.map(n=>`<button type="button" class="ch${top.includes(String(n))?' on':''}" onclick="tgArr('top','${n}',5)">${n}</button>`).join('')}</div>
+  <p><button onclick="useTop()">Usar sugerencia (top 5)</button> <button onclick="clearTop()">Vaciar</button></p>
+  <p class="m">La sugerencia ordena por impacto y expectativa. Puedes ajustar los cinco.</p>`;
+}
+function useTop(){
+  const short=arr('short');
+  const score=n=>(Number(val('mi_'+n))||0)*2+(Number(val('me_'+n))||0)*3;
+  S.a.top=short.slice().sort((a,b)=>score(b)-score(a)||Number(b)-Number(a)).slice(0,5);
+  render(1);
+}
+function clearTop(){S.a.top=[];render(1)}
+
+function s8(){
+  return `<p>Una agenda creíble también explica lo que deja fuera. Y conecta con el problema que elegiste en UD1.</p>`+
+  [1,2,3].map(i=>ta('out'+i,'ODS que dejas fuera y por qué ('+i+')',2,'No lo elegimos porque...')).join('')+
+  `<div class="card"><b>Mi Proyecto</b><p>${val('proj')?e(val('proj')):'<span class="m">Escribe tu problema en la pantalla 1.</span>'}</p>
+   ${sel('projOds',ODS.map(o=>[o.n,o.n+' · '+o.name]),'¿Con qué ODS se relaciona?')}
+   ${ta('projWhy','Por qué se relaciona',2)}</div>`;
+}
+
+function s9(){
+  const top=arr('top');
+  if(top.length<5)return `<p>Elige primero tus cinco ODS prioritarios en la pantalla 7.</p>`;
+  return `<p>Un objetivo sin número es un deseo. Los tres primeros van completos; los dos últimos, con lo mínimo.</p>`+
+  top.map((n,i)=>{
+    const o=ODS.find(x=>x.n==n)||{name:'ODS '+n};
+    const full=i<3;
+    return `<div class="card"><b>${i+1}. ODS ${n} · ${e(o.name)}</b><span class="tag">${full?'SMART completo':'compromiso mínimo'}</span>
+      ${tx('mtOds_'+n,'Meta ODS','7.3')}
+      ${full?
+        tx('lb_'+n,'Línea base','18.400 kWh en 2026')+
+        tx('mt_'+n,'Objetivo: qué y cuánto','Reducir un 15%...')+
+        tx('pl_'+n,'Plazo','diciembre de 2027')+
+        tx('ind_'+n,'Indicador: unidad y frecuencia','kWh/mes y kWh/vehículo')+
+        tx('own_'+n,'Responsable: puesto','Jefatura de taller'):
+        tx('mt_'+n,'Compromiso: qué y cuánto','Mantener el 100%...')+
+        tx('ind_'+n,'Indicador','% de residuos con documento')}
+    </div>`;
+  }).join('')+
+  `<button class="p" onclick="checkSmart()">Validar objetivos</button>${S.a.smartMsg?`<div class="fb">${e(S.a.smartMsg)}</div>`:''}`;
+}
+function checkSmart(){
+  const top=arr('top');const bad=[];
+  top.forEach((n,i)=>{
+    if(!val('mtOds_'+n))bad.push('ODS '+n+': falta la meta ODS');
+    if(!/\d/.test(val('mt_'+n)))bad.push('ODS '+n+': falta una cifra en el objetivo');
+    if(!val('ind_'+n))bad.push('ODS '+n+': falta el indicador');
+    if(i<3){
+      if(!val('lb_'+n))bad.push('ODS '+n+': falta la línea base');
+      if(!/(19|20)\d{2}/.test(val('pl_'+n)))bad.push('ODS '+n+': falta el año en el plazo');
+      if(!val('own_'+n))bad.push('ODS '+n+': falta el responsable');
+    }
+  });
+  S.a.smartMsg=bad.length?bad.slice(0,7).join(' · '):'✅ Los cinco objetivos tienen los campos mínimos.';
+  render(1);
+}
+
+function s10(){
+  const top=arr('top');
+  if(top.length<5)return `<p>Elige primero tus cinco ODS prioritarios en la pantalla 7.</p>`;
+  return `<p>Cada objetivo necesita una acción, un aliado y una prueba. Si no puedes señalar la prueba, no está listo.</p>`+
+  top.map((n,i)=>{
+    const o=ODS.find(x=>x.n===Number(n))||{name:'ODS '+n};
+    return `<div class="card"><b>${i+1}. ODS ${n} · ${e(o.name)}</b>
+      ${tx('acc_'+n,'Acción concreta','LED, sensores, revisión de fugas...')}
+      ${sel('ali_'+n,ALI,'Aliado')}
+      ${tx('evi_'+n,'Evidencia','Factura, contador, documento del gestor...')}
+      ${sel('asg_'+n,ASG,'Etiqueta ASG')}</div>`;
+  }).join('');
+}
+
+function s11(){
+  return `<p>La agenda afecta al taller, pero también a lo que cada uno puede hacer desde su puesto. Elige dos acciones personales.</p>`+
+  [1,2].map(i=>`<div class="q"><b>Compromiso ${i}</b>
+    ${tx('pc'+i,'Qué harás','Separar los trapos con disolvente...')}
+    ${tx('pcd'+i,'Plazo','junio de 2027')}
+    ${tx('pci'+i,'Cómo lo medirás','Nº de partes...')}</div>`).join('')+
+  ta('pcref','¿Qué te llevas de la unidad?',2,'Una idea que no sabías y vas a aplicar.');
+}
+
+function s12(){
+  return `<p class="m">La entrega se hace en el Google Forms. El JSON es la pieza que se guardará para la auditoría final de UD6.</p>
+  <div class="doc">${doc()}</div>
+  <div class="noprint">
+    <p><button class="p" onclick="copyForms()">📋 Copiar para el Google Forms</button> <button onclick="beforePrint()">🖨 Imprimir</button> <button onclick="exportTxt()">💾 TXT</button> <button onclick="exportJson()">🧩 JSON</button></p>
+    <p class="m">Exporta al acabar: el JSON es la pieza que se unificará en la auditoría final de UD6.</p>
+  </div>
+  <h3>Defensa de 2 minutos</h3>
+  <p class="m">Opcional. Sirve para preparar la presentación ante la dirección.</p>
+  ${ta('def1','1) El problema principal',2)}
+  ${ta('def2','2) Mi propuesta y su impacto',2)}
+  ${ta('def3','3) Cómo lo voy a demostrar',2)}
+  <h3>Autoevaluación</h3>
+  <table><tr><th>Criterio</th><th>1–4</th></tr>
+  ${['Selecciono ODS con criterio','Escribo objetivos medibles','Relaciono acción, aliado e indicador','Evito afirmaciones sin evidencia'].map((l,i)=>`<tr><td>${l}</td><td>${sel('ae'+i,[[1,'1'],[2,'2'],[3,'3'],[4,'4']],'')}</td></tr>`).join('')}
+  </table>
+  ${ta('ar','¿Qué te ha costado más?',2)}
+  ${chk('firma','Firmo la agenda: mis objetivos son medibles y verificables.')}
+  <p class="m">Al firmar se guarda la fecha de hoy.</p>`;
+}
+
+const SCR=[
+ {t:'El encargo',s:1,h:s1},{t:'Los ODS no son un adorno',s:1,h:s2},
+ {t:'17 objetivos, 5P',s:2,h:s3},{t:'Qué ODS puede tocar un taller',s:2,h:s4},
+ {t:'Del hallazgo al ODS',s:2,h:s5},{t:'Riesgo y oportunidad',s:3,h:s6},
+ {t:'Matriz 3×3 de materialidad',s:3,h:s7},{t:'Lo que dejamos fuera',s:3,h:s8},
+ {t:'Objetivos SMART',s:3,h:s9},{t:'Acciones y alianzas',s:4,h:s10},
+ {t:'Tu compromiso personal',s:4,h:s11},{t:'Agenda ODS y defensa',s:4,h:s12}
+];
+
+/* ============ EVIDENCIAS ============ */
+function EVID(){
+  const A=S.a,out=[];
+  const add=(s,l,v)=>{if(v!=null&&String(v).trim())out.push({s:s,l:l,v:String(v).trim()})};
+  add(1,'Alumno/a',A.name);add(1,'Proyecto UD1',A.proj);
+  if(arr('impPrio').length)add(1,'Prioridades UD2',arr('impPrio').join(' · '));
+  const gwOk=GW.map((g,i)=>A['gw'+i]!=null&&Number(A['gw'+i])===g.a).filter(Boolean).length;
+  add(2,'Afirmaciones correctas',gwOk+' de '+GW.length);
+  add(3,'ODS explorados',arr('seen').length?arr('seen').map(n=>'ODS '+n).join(', '):'');
+  [1,2,3].forEach(i=>{if(val('obs'+i))add(4,'Práctica '+i,val('obs'+i)+(val('obsOds'+i)?' → ODS '+val('obsOds'+i):''))});
+  add(4,'ODS preseleccionados',arr('short').length?arr('short').join(', '):'');
+  add(4,'Justificación',A.shortWhy);
+  const retos=(arr('retos').length>=5?arr('retos'):DEF_RETOS).slice(0,5);
+  retos.forEach((r,i)=>{if(val('mapOds'+i))add(5,r,'ODS '+val('mapOds'+i)+(val('mapMeta'+i)?' · meta '+val('mapMeta'+i):''))});
+  (arr('top').length>=3?arr('top'):arr('short').slice(0,3)).forEach(n=>{
+    if(val('risk_'+n))add(6,'ODS '+n+' · riesgo',val('risk_'+n));
+    if(val('opp_'+n))add(6,'ODS '+n+' · oportunidad',val('opp_'+n));
+    if(val('stk_'+n))add(6,'ODS '+n+' · stakeholder',val('stk_'+n));
+  });
+  add(7,'Matriz',arr('short').map(n=>n+': I'+(val('mi_'+n)||'-')+' E'+(val('me_'+n)||'-')).join(' · '));
+  add(7,'Prioritarios',arr('top').length?arr('top').join(', '):'');
+  [1,2,3].forEach(i=>add(8,'Exclusión '+i,A['out'+i]));
+  if(val('projOds'))add(8,'Mi Proyecto', 'ODS '+val('projOds')+(val('projWhy')?' · '+val('projWhy'):''));
+  arr('top').forEach(n=>{if(val('mt_'+n))add(9,'ODS '+n+' · objetivo',val('mt_'+n)+(val('ind_'+n)?' · '+val('ind_'+n):''))});
+  arr('top').forEach(n=>{if(val('acc_'+n))add(10,'ODS '+n+' · acción',val('acc_'+n)+(val('ali_'+n)?' · '+val('ali_'+n):''))});
+  [1,2].forEach(i=>add(11,'Compromiso '+i,val('pc'+i)));
+  add(12,'Defensa',[val('def1'),val('def2'),val('def3')].filter(Boolean).join(' · '));
+  return out;
+}
+function updEv(){
+  const items=EVID();
+  const nav=`<b>📁 Evidencias recopiladas</b><p class="m">${items.length} registros · ${Object.keys(S.v).length}/${SCR.length} pantallas visitadas</p>`;
+  const body=SEC.slice(1).map((s,i)=>{
+    const it=items.filter(x=>x.s===i+1);
+    if(!it.length)return '';
+    return `<h4>${i+1}. ${e(s)}</h4><ul>${it.map(x=>`<li><b>${e(x.l)}</b></li>`).join('')}</ul>`;
+  }).join('');
+  $('#ev').innerHTML=nav+(body||'<p class="m">Aún no hay evidencias. Completa las pantallas y aparecerán aquí, ordenadas como el informe.</p>');
+}
+
+/* ============ DOCUMENTO ============ */
+function doc(){
+  const A=S.a;
+  const rows=arr('top').map(n=>{
+    const o=ODS.find(x=>x.n==n)||{name:'ODS '+n};
+    return `<tr><td><b>${n}</b> · ${e(o.name)}</td><td>${e(val('mtOds_'+n))||'—'}</td><td>${e(val('mt_'+n))||'—'}</td><td>${e(val('ind_'+n))||'—'}</td><td>${e(val('acc_'+n))||'—'}</td><td>${e(val('ali_'+n))||'—'}</td><td>${e(val('evi_'+n))||'—'}</td><td>${e(val('asg_'+n))||'—'}</td></tr>`;
+  }).join('');
+  let h=`<h3>Agenda ODS de MotorBalear 2027</h3><p class="m">${e(A.name||'(sin nombre)')} · ${new Date().toLocaleDateString('es-ES')}</p>`;
+  h+=rows?`<table><tr><th>ODS</th><th>Meta</th><th>Objetivo</th><th>Indicador</th><th>Acción</th><th>Aliado</th><th>Evidencia</th><th>ASG</th></tr>${rows}</table>`:'<p class="m">Aún no has elegido los cinco ODS.</p>';
+  SEC.slice(1).forEach((s,i)=>{
+    const it=EVID().filter(x=>x.s===i+1);
+    if(it.length)h+=`<h4>${i+1}. ${e(s)}</h4>`+it.map(x=>`<p><b>${e(x.l)}:</b> ${e(x.v)}</p>`).join('');
+  });
+  h+=`<p class="sg">✔ ${A.firma?'Firmado':'Pendiente de firma'} por ${e(A.name||'(sin nombre)')}${A.firma?' el '+e(A.firma):''}. «Los objetivos de esta agenda son medibles y verificables; no incluyo afirmaciones sin evidencia.»</p>`;
+  return h;
+}
+function docText(){
+  const A=S.a;
+  const L=['AGENDA ODS · MOTORBALEAR 2027','Alumno/a: '+(A.name||''),'Fecha: '+new Date().toLocaleDateString('es-ES'),''];
+  arr('top').forEach((n,i)=>{
+    const o=ODS.find(x=>x.n==n)||{name:'ODS '+n};
+    L.push((i+1)+') ODS '+n+' · '+o.name+' | Meta '+(val('mtOds_'+n)||'—'));
+    L.push('   Objetivo: '+(val('mt_'+n)||'—'));
+    L.push('   Indicador: '+(val('ind_'+n)||'—')+' | Responsable: '+(val('own_'+n)||'—'));
+    L.push('   Acción: '+(val('acc_'+n)||'—')+' | Aliado: '+(val('ali_'+n)||'—'));
+    L.push('   Evidencia: '+(val('evi_'+n)||'—')+' | ASG: '+(val('asg_'+n)||'—'));
+    L.push('');
+  });
+  return L.join('\n');
+}
+function formsText(){
+  const L=[docText()];
+  L.push('Mi Proyecto: '+(val('proj')||'—')+(val('projOds')?' → ODS '+val('projOds'):''));
+  [1,2,3].forEach(i=>{if(val('out'+i))L.push('ODS fuera: '+val('out'+i))});
+  const first=arr('top')[0];
+  if(first&&val('evi_'+first))L.push('Evidencia principal (ODS '+first+'): '+val('evi_'+first));
+  L.push('Compromiso personal: '+(val('pc1')||'—')+' / '+(val('pc2')||'—'));
+  return L.join('\n');
+}
+
+/* ============ EXPORTAR / IMPORTAR ============ */
+function buildJson(){
+  const A=S.a;
+  const agenda=arr('top').map(n=>({
+    ods:String(n),meta:val('mtOds_'+n),objetivo:val('mt_'+n),lineaBase:val('lb_'+n),
+    metaCuantificada:val('mt_'+n),plazo:val('pl_'+n),indicador:val('ind_'+n),responsable:val('own_'+n),
+    accion:val('acc_'+n),aliado:val('ali_'+n),evidencia:val('evi_'+n),asg:val('asg_'+n)
+  }));
+  return {proyecto:'MotorBalear S.L.',modulo:'SASP',unidad:'UD3',version:'1.0',fecha:new Date().toISOString(),
+    alumno:A.name||'',diagnostico:A.impDiag||{},
+    proyectoPersonal:{problema:val('proj'),odsVinculados:val('projOds')?[String(val('projOds'))]:[],justificacion:val('projWhy')},
+    agenda:agenda,compromisoPersonal:[val('pc1'),val('pc2')].filter(Boolean),
+    autoevaluacion:{niveles:[0,1,2,3].map(i=>A['ae'+i]||null),reflexion:val('ar')},datos:A};
+}
+function download(name,text,type){
+  const b=new Blob([text],{type:type||'text/plain;charset=utf-8'});
+  const u=document.createElement('a');u.href=URL.createObjectURL(b);u.download=name;u.click();
+  setTimeout(()=>URL.revokeObjectURL(u.href),1500);
+}
+function slug(){return (val('name')||'alumno').replace(/\W+/g,'_')}
+function exportTxt(){download('UD3_MotorBalear_'+slug()+'.txt',docText()+'\n\n=== DATOS ===\n[[DATOS]]'+JSON.stringify(S.a))}
+function exportJson(){download('UD3_MotorBalear_'+slug()+'.json',JSON.stringify(buildJson(),null,1),'application/json')}
+function copyForms(){
+  const t=formsText();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>toast('Copiado para el Forms'),()=>fallbackCopy(t));
+  }else fallbackCopy(t);
+}
+function fallbackCopy(t){
+  const x=document.createElement('textarea');x.value=t;document.body.appendChild(x);x.select();
+  try{document.execCommand('copy');toast('Copiado para el Forms')}catch(e){alert('Copia manual:\n'+t)}
+  x.remove();
+}
+function beforePrint(){render(1);setTimeout(()=>window.print(),120)}
+function resetAll(){
+  if(!confirm('¿Borrar todo tu trabajo de esta unidad? No se puede deshacer.'))return;
+  if(!confirm('Última confirmación: se eliminarán todas tus respuestas.'))return;
+  try{localStorage.removeItem(K)}catch(x){}
+  S={a:{},p:0,v:{}};render();
+}
+function norm(){
+  ['short','top','seen'].forEach(k=>{if(!Array.isArray(S.a[k]))S.a[k]=[];S.a[k]=S.a[k].map(String)});
+  S.a.top=S.a.top.slice(0,5);
+  if(!Array.isArray(S.a.retos))S.a.retos=[];
+  if(!Array.isArray(S.a.impPrio))S.a.impPrio=[];
+}
+function importUD2(j){
+  if(j.alumno)S.a.name=j.alumno;
+  S.a.impPrio=Array.isArray(j.prioridades)?j.prioridades:[];
+  S.a.impDiag=j.diagnostico||{};
+  const base=(j.prioridades&&j.prioridades.length?j.prioridades:DEF_RETOS).slice(0,5);
+  S.a.retos=base.length>=5?base:DEF_RETOS;
+  norm();render();toast('UD2 importada: '+S.a.impPrio.length+' prioridades');
+}
+function onFile(ev){
+  const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      let t=String(r.result).trim(),j=null;
+      if(t.charAt(0)==='{')j=JSON.parse(t);
+      else if(t.indexOf('[[DATOS]]')>=0)j={datos:JSON.parse(t.split('[[DATOS]]')[1])};
+      if(!j)throw new Error('formato');
+      if(j.unidad==='UD2'||Array.isArray(j.prioridades)){importUD2(j);return}
+      if(j.datos&&!j.unidad&&(j.datos.mi0!=null||j.datos.w_f0!=null||j.datos.c4_c!=null)){alert('Ese TXT es de la UD2 y no incluye las prioridades. Importa el JSON de la UD2.');return}
+      const d=j.datos||j;
+      if(!d||typeof d!=='object')throw new Error('datos');
+      S.a=d;norm();S.p=0;render();toast('Trabajo importado');
+    }catch(x){alert('Archivo no válido: usa un TXT o JSON exportado desde UD2 o UD3.')}
+  };
+  r.readAsText(f);ev.target.value='';
+}
+
+/* ============ RENDER ============ */
+function render(keep){
+  const s=SCR[S.p]||SCR[0];
+  S.v[S.p]=1;
+  $('#m').innerHTML=`<div class="k">UD3 · Sesión ${s.s} · Pantalla ${S.p+1} de ${SCR.length}</div><h2>${e(s.t)}</h2>`+s.h()+
+    `<div class="nv"><button ${S.p?'':'disabled'} onclick="go(${S.p-1})">◀ Anterior</button><button class="p" ${S.p<SCR.length-1?'':'disabled'} onclick="go(${S.p+1})">Siguiente ▶</button></div>`;
+  $('#sel').innerHTML=SCR.map((x,i)=>`<option value="${i}"${i===S.p?' selected':''}>${S.v[i]?'✓ ':''}${i+1}. ${e(x.t)}</option>`).join('');
+  $('#pg').style.width=(Object.keys(S.v).length/SCR.length*100)+'%';
+  updEv();save();
+  if(!keep)window.scrollTo(0,0);
+}
+function go(n){S.p=Math.max(0,Math.min(SCR.length-1,n));render()}
+
+document.addEventListener('input',ev=>{
+  const t=ev.target;
+  if(t.tagName==='SELECT'||t.type==='checkbox')return;
+  onEdit(t);
+});
+document.addEventListener('change',ev=>{
+  const t=ev.target;
+  if(t.tagName==='SELECT'||t.type==='checkbox')onEdit(t);
+});
+function onEdit(t){
+  const k=t.dataset&&t.dataset.k;if(!k)return;
+  if(t.type==='checkbox')S.a[k]=t.checked?(k==='firma'?new Date().toISOString().slice(0,10):1):'';
+  else S.a[k]=t.value;
+  save();
+  if(k==='firma'){render(1);return}
+  if(/^(mi_|me_)/.test(k)){render(1);return}
+  updEv();
+}
+$('#fi').onchange=onFile;
+
+/* ============ INICIO ============ */
+$('#tt').innerHTML='UD3 · ODS y desempeño profesional <span class="m">v1.0</span>';
+if(S.p==null||S.p<0||S.p>=SCR.length)S.p=0;
+norm();
+render(1);
+</script>
+</body>
+</html>
